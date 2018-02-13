@@ -105,7 +105,7 @@
 			 };
             
             // checkboxes
-            document.querySelector("#tintChecked").onchange = function(e){
+            document.querySelector("#timeCheckeded").onchange = function(e){
 				tintRed = e.target.checked;
 			};	
             
@@ -322,8 +322,8 @@
 			</select>
         </label>
         <br><br>
-        <label for="tintCheck">Tint Red</label>
-        <input type="checkbox" id="tintChecked">
+        <label for="timeCheck">Display Play Time</label>
+        <input type="checkbox" id="timeChecked">
         <br>
         <label for="invertCheck">Invert Colors</label>
         <input type="checkbox" id="invertChecked">
@@ -333,6 +333,36 @@
         <br>
         <label for="lineCheck">Add Lines</label>
         <input type="checkbox" id="lineChecked">
+        <br><br>
+        <label for="albumCheck">View Album Cover</label>
+        <input type="checkbox" id="albumChecked">
+        <br><br>
+        <label>Line Color:
+            <select id="strokeStyleChooser">
+                <option value="red" selected>Red</option>
+                <option value="orange">Orange</option>
+                <option value="yellow">Yellow</option>
+                <option value="green">Green</option>
+                <option value="aqua">Aqua</option>
+                <option value="blue">Blue</option>
+                <option value="purple">Purple</option>
+                <option value="black">Black</option>
+                <option value="white">White</option>
+            </select>
+        </label>
+        <br><br>
+        <label>Change Mode:
+            <select id="modeChooser">
+                <option value="frequency">Frequency</option>
+                <option value="waveform">Waveform</option>
+            </select>
+        </label>
+        <br><br>
+        <label>Change Height</label>
+        <input type="range" min="1" max="100" value="50">
+        <br><br>
+        <label>Line Width</label>
+        <input type="range" min="1" max="100" value="50">
         <br><br>
         <button id="fsButton">Go Full Screen</button>
 		<p id="status">???</p>
