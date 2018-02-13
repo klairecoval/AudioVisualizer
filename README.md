@@ -7,7 +7,7 @@ Inspiration: [Hamza580](http://bit.ly/2EGhG03)
 - [ ] Keep track of time on screen
 - [ ] Change width of bar graph
   - Switch between view shape modes
-- [ ] Find audio from NCS YouTube
+- [ ] Find audio from [NCS](http://bit.ly/1l3zpKd)
 - [ ] Song selector
 - [ ] Click and drag to start new waveform
 - [ ] Symmetry of the bars, horizontal
