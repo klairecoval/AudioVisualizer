@@ -32,3 +32,7 @@ Inspiration: [Hamza580](http://bit.ly/2EGhG03)
   - Checkbox
 - [ ] Show album cover 
   - Checkbox
+  
+ ## Class Resources
+ - [Main Project Resources](http://igm.rit.edu/~acjvks/courses/2018-spring/330/html/project-1/)
+ - [Checklist](http://igm.rit.edu/~acjvks/courses/2018-spring/330/html/p1-checklist/project-1-checklist.html)
