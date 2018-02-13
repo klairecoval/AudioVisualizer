@@ -1,6 +1,8 @@
 # AudioVisualizer
 An audio visualizer using the Canvas API
 
+Inspiration: [Hamza580](http://bit.ly/2EGhG03)
+
 ## Proposed Features
 - [ ] Keep track of time on screen
 - [ ] Change width of bar graph
