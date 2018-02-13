@@ -14,11 +14,19 @@ An audio visualizer using the Canvas API
 - [ ] Add now playing  
 
 ### Controls (need 1 selector, 2 sliders, 3 checkboxes)
-- [ ] Invert button //Checkbox
-- [ ] Show play time //Check box
-- [ ] Frequency/waveform mode 
-- [ ] Color selector //Selector
-- [ ] Height Slider //Slider
-- [ ] Line width changer //Slider
-- [ ] Noise on lines in screen only //Checkbox
-- [ ] Show album cover //Checkbox
+- [ ] Invert button
+  - Checkbox
+- [ ] Show play time
+  - Check box
+- [ ] Frequency/waveform mode
+  - Selector
+- [ ] Color selector 
+  - Selector
+- [ ] Height Slider 
+  - Slider
+- [ ] Line width changer 
+  - Slider
+- [ ] Noise on lines in screen only 
+  - Checkbox
+- [ ] Show album cover 
+  - Checkbox
