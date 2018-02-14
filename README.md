@@ -7,15 +7,15 @@ Inspiration: [Hamza580](http://bit.ly/2EGhG03)
 - [ ] Keep track of time on screen
 - [ ] Change width of bar graph
   - Switch between view shape modes
-- [ ] Find audio from [NCS](http://bit.ly/1l3zpKd)
-- [ ] Song selector
+- [x] Find audio from [NCS](http://bit.ly/1l3zpKd)
+- [x] Song selector
 - [ ] Click and drag to start new waveform
 - [ ] Symmetry of the bars, horizontal
 - [ ] Possible pulse where mouse clicked
   - Individually change color of each circle when pressed
-- [ ] Add now playing  
+- [x] Add now playing  
 
-### Controls (need 1 selector, 2 sliders, 3 checkboxes)
+### Controls (need 1 selector, 2 sliders, 3 checkboxes) //All Added, not functional
 - [ ] Invert button
   - Checkbox
 - [ ] Show play time
