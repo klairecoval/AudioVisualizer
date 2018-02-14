@@ -32,6 +32,8 @@ Inspiration: [Hamza580](http://bit.ly/2EGhG03)
   - Checkbox
 - [ ] Show album cover 
   - Checkbox
+- [x] Opacity changer
+  - Checkbox
 - [ ] Moving the lines/bars across the screen versus making it static
   - Checkbox or selector (either one works)
 
