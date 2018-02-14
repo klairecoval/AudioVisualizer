@@ -128,8 +128,8 @@
 				lineHeight = e.target.value;
 			};
 
-            document.querySelector("#widthChecked").onchange = function(e){
-				lineWidth = e.target.checked;
+            document.querySelector("#widthChanged").onchange = function(e){
+				lineWidth = e.target.value;
 			};
             	
 		}
@@ -241,10 +241,7 @@
             //data[i+3]isthealphavalue
             for(var i=0; i<length ;i+=4){
                 //iv)increaseredvalueonly
-                if(tintRed){
-                    //justtheredchannelthistime
-                    data[i] = data[i]+100;
-                }
+                
                 
                 //v)inverteverycolorchannel
                 if(invert){
@@ -353,7 +350,7 @@
         <label for="heightChange">Change Height</label>
         <input id="heightChanged" type="range" min="1" max="600" step="20" value="100">
         <br>
-        <label for="widthChang">Line Width</label>
+        <label for="widthChange">Line Width</label>
         <input id="widthChanged" type="range" min="1" max="100" value="50" step="10">
         <br><br>
         <button id="fsButton">Go Full Screen</button>
