@@ -22,7 +22,7 @@ Inspiration: [Hamza580](http://bit.ly/2EGhG03)
   - Check box
 - [ ] Frequency/waveform mode
   - Selector
-- [ ] Color selector 
+- [x] Color selector 
   - Selector
 - [ ] Height Slider 
   - Slider
@@ -31,6 +31,8 @@ Inspiration: [Hamza580](http://bit.ly/2EGhG03)
 - [ ] Noise on lines in screen only 
   - Checkbox
 - [ ] Show album cover 
+  - Checkbox
+- [x] Opacity changer
   - Checkbox
 - [ ] Moving the lines/bars across the screen versus making it static
   - Checkbox or selector (either one works)
