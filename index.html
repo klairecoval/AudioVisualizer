@@ -164,19 +164,15 @@
 			// DRAW!
 			ctx.clearRect(0,0,900,600);  
 
-<<<<<<< HEAD
-            var circleRadius = 4;
-=======
-			var barWidth = 10;
-			var barSpacing = 2;
-			var barHeight = 100;
-			var topSpacing = 250;
+			// var barWidth = 10;
+			// var barSpacing = 2;
+			// var barHeight = 100;
+			// var topSpacing = 250;
 
             var circleRadius = 5;
->>>>>>> 1561301fe9584bd6954c0ec4ffb757add4118ba7
             var circleSpacing = 1;
             var circleHeight = 100;
-            var topSpacing = 50;
+            var topSpacing = 20;
 			
 			// loop through the data and draw!
 			for(var i=0; i<data.length; i++) { 
@@ -190,7 +186,7 @@
 				// ctx.fillRect(i * (barWidth + barSpacing),topSpacing + 256-data[i],barWidth,barHeight); 
                 ctx.beginPath();
                 // ctx.arc(i * ((circleRadius * 2) + circleSpacing), topSpacing + 256-data[i], circleRadius, 0, Math.PI * 2, true);
-                ctx.arc(i * 10, 150, circleRadius + (data[i] / 10), 0, Math.PI * 2, true);
+                ctx.arc(i * 15, topSpacing, (data[i] / 100) * 2, 0, Math.PI * 2, true);
                 ctx.closePath();
                 ctx.fill();
                 // console.log((i * (circleRadius * 2) + circleSpacing) + " " + topSpacing + 512-data[i]);
@@ -326,7 +322,7 @@
 		<label>Track: 
 			<select id="trackSelect" >
                 <option value="media/Invincible.mp3">Invincible</option>
-                <option value="media/Shelter.mp3">Shelter ()</option>
+                <option value="media/Shelter.mp3">Shelter (Pure 100% Remix)</option>
                 <option value="media/Feel Good.mp3">Feel Good</option>
 				<option value="media/New Adventure Theme.mp3">New Adventure Theme</option>
 				<option value="media/Peanuts Theme.mp3">Peanuts Theme</option>
