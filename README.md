@@ -43,4 +43,6 @@ Inspiration: [Hamza580](http://bit.ly/2EGhG03)
 
 ## Media Sources
 Note: We do **NOT** claim ownership for these audio files. They belong to the respective owners.
-- [DEAF KEV - Invincible](https://www.youtube.com/watch?v=J2X5mJ3HDYE)
+- [DEAF KEV - Invincible (NCS Release)](https://www.youtube.com/watch?v=J2X5mJ3HDYE)
+- [Porter Robinson & Madeon - Shelter (Pure 100% Remix)](https://www.youtube.com/watch?v=s6yOFbMFyoM)
+- [Syn Cole - Feel Good (NCS Release)](https://www.youtube.com/watch?v=q1ULJ92aldE)
