@@ -186,16 +186,11 @@
 				
                 // the higher the amplitude of the sample (bin) the taller the bar
 				// remember we have to draw our bars left-to-right and top-down
-				// ctx.fillRect(i * (barWidth + barSpacing),topSpacing + 256-data[i],barWidth,barHeight); 
                 ctx.beginPath();
-                // ctx.arc(i * ((circleRadius * 2) + circleSpacing), topSpacing + 256-data[i], circleRadius, 0, Math.PI * 2, true);
                 ctx.arc(i * 10, 150, circleRadius + (data[i] / 10), 0, Math.PI * 2, true);
                 ctx.closePath();
                 ctx.fill();
-                // console.log((i * (circleRadius * 2) + circleSpacing) + " " + topSpacing + 512-data[i]);
-                
-                // draw inverted bars
-                // ctx.fillRect(640 - i*(barWidth + barSpacing), topSpacing + 256 - data[i] - 20, barWidth, barHeight);
+
                 
                 //reddish circles
                 var percent = data[i]/255;
@@ -333,9 +328,10 @@
 			</select>
         </label>
         <br>
-        <label>Line Color:
+        <label>Color:
             <select id="colorChooser">
-                <option value="red" selected>Red</option>
+                <option value="white" selected>White</option>
+                <option value="red">Red</option>
                 <option value="orange">Orange</option>
                 <option value="yellow">Yellow</option>
                 <option value="green">Green</option>
@@ -343,7 +339,6 @@
                 <option value="blue">Blue</option>
                 <option value="purple">Purple</option>
                 <option value="black">Black</option>
-                <option value="white">White</option>
             </select>
         </label>
         <br>
