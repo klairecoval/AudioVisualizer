@@ -43,7 +43,8 @@
         var lineWidth = 3;
         var album = false;
         var lineHeight = 200;
-
+        var currColor = "white";
+        var displayMode = "frequency";
 		
 		function init(){
 			// set up canvas stuff
@@ -99,37 +100,42 @@
 		}
 		
 		function setupUI(){
+            //Selectors
 			document.querySelector("#trackSelect").onchange = function(e){
 				playStream(audioElement,e.target.value);
 			};
-			
-			document.querySelector("#fsButton").onclick = function(){
-				requestFullscreen(canvas);
+            document.querySelector("#colorChooser").onchange = function(e){
+				currColor = e.target.value;
+			};
+            document.querySelector("#modeChooser").onclick = function(){
+				displayMode = e.target.value;
 			};
             
-            // checkboxes
+            //Checkboxes
             document.querySelector("#timeChecked").onchange = function(e){
 				showTime = e.target.checked;
 			};	
-            
             document.querySelector("#invertChecked").onchange = function(e){
 				invert = e.target.checked;
 			};	
-            
             document.querySelector("#noiseChecked").onchange = function(e){
 				noise = e.target.checked;
 			};
-
             document.querySelector("#albumChecked").onchange = function(e){
 				album = e.target.checked;
 			};	
 
+            //Sliders
             document.querySelector("#heightChanged").onchange = function(e){
 				lineHeight = e.target.value;
 			};
-
             document.querySelector("#widthChanged").onchange = function(e){
 				lineWidth = e.target.value;
+			};
+            
+            //Full Screen Button
+            document.querySelector("#fsButton").onclick = function(){
+				requestFullscreen(canvas);
 			};
             	
 		}
@@ -162,7 +168,7 @@
 			//analyserNode.getByteTimeDomainData(data); // waveform data
 			
 			// DRAW!
-			ctx.clearRect(0,0,800,600);  
+			ctx.clearRect(0,0,900,600);  
 
 			var barWidth = 4;
 			var barSpacing = 1;
@@ -315,7 +321,7 @@
         </label>
         <br>
         <label>Line Color:
-            <select id="strokeStyleChooser">
+            <select id="colorChooser">
                 <option value="red" selected>Red</option>
                 <option value="orange">Orange</option>
                 <option value="yellow">Yellow</option>
