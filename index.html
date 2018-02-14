@@ -180,12 +180,8 @@
 			// loop through the data and draw!
 			for(var i=0; i<data.length; i++) { 
                 
-<<<<<<< HEAD
-				ctx.fillStyle = 'rgba(255,255,255,0.8)'; 
-=======
 				ctx.fillStyle = currColor; 
                 ctx.globalAlpha = opacity;
->>>>>>> e01c2100c953bd58fde01b7d8703cd500fb13922
 				
 				
                 // the higher the amplitude of the sample (bin) the taller the bar
@@ -205,10 +201,7 @@
                 // }
                 ctx.closePath();
                 ctx.fill();
-                // console.log((i * (circleRadius * 2) + circleSpacing) + " " + topSpacing + 512-data[i]);
-                
-                // draw inverted bars
-                // ctx.fillRect(640 - i*(barWidth + barSpacing), topSpacing + 256 - data[i] - 20, barWidth, barHeight);
+
                 
                 //reddish circles
                 var percent = data[i]/255;
@@ -346,9 +339,10 @@
 			</select>
         </label>
         <br>
-        <label>Line Color:
+        <label>Color:
             <select id="colorChooser">
-                <option value="red" selected>Red</option>
+                <option value="white" selected>White</option>
+                <option value="red">Red</option>
                 <option value="orange">Orange</option>
                 <option value="yellow">Yellow</option>
                 <option value="green">Green</option>
@@ -356,7 +350,6 @@
                 <option value="blue">Blue</option>
                 <option value="purple">Purple</option>
                 <option value="black">Black</option>
-                <option value="white">White</option>
             </select>
         </label>
         <br>

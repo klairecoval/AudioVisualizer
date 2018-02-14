@@ -40,3 +40,7 @@ Inspiration: [Hamza580](http://bit.ly/2EGhG03)
 ## Class Resources
 - [Main Project Resources](http://igm.rit.edu/~acjvks/courses/2018-spring/330/html/project-1/)
 - [Checklist](http://igm.rit.edu/~acjvks/courses/2018-spring/330/html/p1-checklist/project-1-checklist.html)
+
+## Media Sources
+Note: We do **NOT** claim ownership for these audio files. They belong to the respective owners.
+- [DEAF KEV - Invincible](https://www.youtube.com/watch?v=J2X5mJ3HDYE)
