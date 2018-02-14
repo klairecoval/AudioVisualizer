@@ -19,7 +19,8 @@
     }
       
       #controls{
-      	margin: 0 auto;
+        width: 900px;
+        margin: 0 auto;
       }
 	</style>
 	<script>
@@ -31,11 +32,17 @@
 		var SOUND_1 = 'media/New Adventure Theme.mp3';
 		var SOUND_2 = 'media/Peanuts Theme.mp3';
 		var SOUND_3 = 'media/The Picard Song.mp3';
+        var SOUND_4 = 'media/Inincivle.mp3'
 		var audioElement;
 		var analyserNode;
-		var canvas,ctx;
-        var maxRadius = 100;  // declared in closure, not in local
-        var invert = false, tintRed = false, noise = false, lines = false;
+		var canvas, ctx;
+        var invert = false;
+        var showTime = false; 
+        var noise = false;
+        var lines = false;
+        var lineWidth = 3;
+        var album = false;
+        var lineHeight = 200;
 
 		
 		function init(){
@@ -100,14 +107,9 @@
 				requestFullscreen(canvas);
 			};
             
-            // maxRadius slider
-			 document.querySelector("#maxRadSlider").onchange = function(e){
-			 	maxRadius = e.target.value;
-			 };
-            
             // checkboxes
             document.querySelector("#timeChecked").onchange = function(e){
-				tintRed = e.target.checked;
+				showTime = e.target.checked;
 			};	
             
             document.querySelector("#invertChecked").onchange = function(e){
@@ -116,7 +118,19 @@
             
             document.querySelector("#noiseChecked").onchange = function(e){
 				noise = e.target.checked;
+			};
+
+            document.querySelector("#albumChecked").onchange = function(e){
+				album = e.target.checked;
 			};	
+
+            document.querySelector("#heightChanged").onchange = function(e){
+				lineHeight = e.target.value;
+			};
+
+            document.querySelector("#widthChanged").onchange = function(e){
+				lineWidth = e.target.value;
+			};
             	
 		}
 		
@@ -179,7 +193,7 @@
                 
                 //reddish circles
                 var percent = data[i]/255;
-                var circleRadius = percent * maxRadius;
+                var circleRadius = percent;
                 ctx.beginPath();
                 ctx.fillStyle = makeColor(255, 111, 111, .34 - percent/3.0);
                 ctx.arc(canvas.width/2, canvas.height/2, circleRadius, 0, 2 * Math.PI, false);
@@ -236,10 +250,7 @@
             //data[i+3]isthealphavalue
             for(var i=0; i<length ;i+=4){
                 //iv)increaseredvalueonly
-                if(tintRed){
-                    //justtheredchannelthistime
-                    data[i] = data[i]+100;
-                }
+                
                 
                 //v)inverteverycolorchannel
                 if(invert){
@@ -301,30 +312,17 @@
 	<canvas id="canvas" width="900" height="600"></canvas>
 	<div id="controls">
 		<audio controls loop></audio>
+		<p id="status">???</p>
+        <br>
 		<label>Track: 
 			<select id="trackSelect" >
+                <option value="media/Invincible.mp3">Invincible</option>
 				<option value="media/New Adventure Theme.mp3">New Adventure Theme</option>
 				<option value="media/Peanuts Theme.mp3">Peanuts Theme</option>
 				<option value="media/The Picard Song.mp3">The Picard Song</option>
 			</select>
         </label>
         <br>
-        <label for="maxRadSlider">Maximum Radius</label>
-		<input id="maxRadSlider" type ="range" min ="1" max="200" step ="10" value ="100"/>
-        <br><br>
-        <br><br>
-        <label for="timeCheck">Display Play Time</label>
-        <input type="checkbox" id="timeChecked">
-        <br>
-        <label for="invertCheck">Invert Colors</label>
-        <input type="checkbox" id="invertChecked">
-        <br>
-        <label for="noiseCheck">Add Noise</label>
-        <input type="checkbox" id="noiseChecked">
-        <br>
-        <label for="albumCheck">View Album Cover</label>
-        <input type="checkbox" id="albumChecked">
-        <br><br>
         <label>Line Color:
             <select id="strokeStyleChooser">
                 <option value="red" selected>Red</option>
@@ -338,7 +336,7 @@
                 <option value="white">White</option>
             </select>
         </label>
-        <br><br>
+        <br>
         <label>Change Mode:
             <select id="modeChooser">
                 <option value="frequency">Frequency</option>
@@ -346,14 +344,25 @@
             </select>
         </label>
         <br><br>
-        <label>Change Height</label>
-        <input type="range" min="1" max="100" value="50">
+        <label for="timeCheck">Display Play Time</label>
+        <input type="checkbox" id="timeChecked">
+        <br>
+        <label for="invertCheck">Invert Colors</label>
+        <input type="checkbox" id="invertChecked">
+        <br>
+        <label for="noiseCheck">Add Noise</label>
+        <input type="checkbox" id="noiseChecked">
+        <br>
+        <label for="albumCheck">View Album Cover</label>
+        <input type="checkbox" id="albumChecked">
         <br><br>
-        <label>Line Width</label>
-        <input type="range" min="1" max="100" value="50">
+        <label for="heightChange">Change Height</label>
+        <input id="heightChanged" type="range" min="1" max="600" step="20" value="100">
+        <br>
+        <label for="widthChange">Line Width</label>
+        <input id="widthChanged" type="range" min="1" max="100" value="50" step="10">
         <br><br>
         <button id="fsButton">Go Full Screen</button>
-		<p id="status">???</p>
 	</div>
 </body>
 </html>
