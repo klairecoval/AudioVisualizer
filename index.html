@@ -28,7 +28,7 @@
 	(function(){
 		"use strict";
 		
-		var NUM_SAMPLES = 512;
+		var NUM_SAMPLES = 256;
 		var SOUND_1 = 'media/New Adventure Theme.mp3';
 		var SOUND_2 = 'media/Peanuts Theme.mp3';
 		var SOUND_3 = 'media/The Picard Song.mp3';
@@ -164,7 +164,16 @@
 			// DRAW!
 			ctx.clearRect(0,0,900,600);  
 
+<<<<<<< HEAD
             var circleRadius = 4;
+=======
+			var barWidth = 10;
+			var barSpacing = 2;
+			var barHeight = 100;
+			var topSpacing = 250;
+
+            var circleRadius = 5;
+>>>>>>> 1561301fe9584bd6954c0ec4ffb757add4118ba7
             var circleSpacing = 1;
             var circleHeight = 100;
             var topSpacing = 50;
@@ -172,16 +181,19 @@
 			// loop through the data and draw!
 			for(var i=0; i<data.length; i++) { 
                 
-				// ctx.fillStyle = 'rgba(0,255,0,0.6)'; 
-                ctx.fillStyle = '#fff';
+				ctx.fillStyle = 'rgba(255,255,255,0.8)'; 
+                // ctx.fillStyle = '#ffffff';
 				
 				
                 // the higher the amplitude of the sample (bin) the taller the bar
 				// remember we have to draw our bars left-to-right and top-down
 				// ctx.fillRect(i * (barWidth + barSpacing),topSpacing + 256-data[i],barWidth,barHeight); 
                 ctx.beginPath();
-                ctx.arc(i * ((circleRadius * 2) + circleSpacing), topSpacing + 512-data[i], circleRadius, 0, Math.PI * 2);
+                // ctx.arc(i * ((circleRadius * 2) + circleSpacing), topSpacing + 256-data[i], circleRadius, 0, Math.PI * 2, true);
+                ctx.arc(i * 10, 150, circleRadius + (data[i] / 10), 0, Math.PI * 2, true);
                 ctx.closePath();
+                ctx.fill();
+                // console.log((i * (circleRadius * 2) + circleSpacing) + " " + topSpacing + 512-data[i]);
                 
                 // draw inverted bars
                 // ctx.fillRect(640 - i*(barWidth + barSpacing), topSpacing + 256 - data[i] - 20, barWidth, barHeight);
@@ -305,7 +317,7 @@
 	</script>
 </head>
 <body>
-	<canvas id="canvas" width="900" height="600"></canvas>
+	<canvas id="canvas" width="800" height="600"></canvas>
 	<div id="controls">
 		<audio controls loop></audio>
 		<p id="status">???</p> <!--Current song-->
