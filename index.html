@@ -10,8 +10,10 @@
       }
 
       canvas {
-        margin-left:10px;
-        margin-top:10px;
+        margin-right:auto;
+        margin-left: auto;
+        padding: 0;
+        display: block;
         box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
         background: black;
     }
@@ -105,7 +107,7 @@
 			 };
             
             // checkboxes
-            document.querySelector("#timeCheckeded").onchange = function(e){
+            document.querySelector("#timeChecked").onchange = function(e){
 				tintRed = e.target.checked;
 			};	
             
@@ -116,10 +118,7 @@
             document.querySelector("#noiseChecked").onchange = function(e){
 				noise = e.target.checked;
 			};	
-            
-            document.querySelector("#lineChecked").onchange = function(e){
-				lines = e.target.checked;
-			};	
+            	
 		}
 		
 		function playStream(audioElement,path){
@@ -169,22 +168,6 @@
                 
                 // draw inverted bars
                 ctx.fillRect(640 - i*(barWidth + barSpacing), topSpacing + 256 - data[i] - 20, barWidth, barHeight);
-                
-
-                // bottom curve
-//                ctx.strokeStyle = makeColor(204, 0, 204, 0.24);
-//                ctx.beginPath();
-//                ctx.moveTo(0, canvas.height);
-//                ctx.quadraticCurveTo(canvas.width/2, data[i]*2, canvas.width, canvas.height);
-//                ctx.stroke();
-//                ctx.closePath();
-//                
-//                //top curve
-//                ctx.beginPath();
-//                ctx.moveTo(0, 0);
-//                ctx.quadraticCurveTo(canvas.width/2, data[i]*2, canvas.width, 0);
-//                ctx.stroke();
-//                ctx.closePath();
                 
                 //reddish circles
                 var percent = data[i]/255;
@@ -307,13 +290,9 @@
 	</script>
 </head>
 <body>
-	<canvas id="canvas" width="640" height="400"></canvas>
+	<canvas id="canvas" width="900" height="600"></canvas>
 	<div id="controls">
 		<audio controls loop></audio>
-        <br><br>
-        <label for="maxRadSlider">Maximum Radius</label>
-		<input id="maxRadSlider" type ="range" min ="1" max="200" step ="10" value ="100"/>
-        <br><br>
 		<label>Track: 
 			<select id="trackSelect" >
 				<option value="media/New Adventure Theme.mp3">New Adventure Theme</option>
@@ -321,6 +300,10 @@
 				<option value="media/The Picard Song.mp3">The Picard Song</option>
 			</select>
         </label>
+        <br>
+        <label for="maxRadSlider">Maximum Radius</label>
+		<input id="maxRadSlider" type ="range" min ="1" max="200" step ="10" value ="100"/>
+        <br><br>
         <br><br>
         <label for="timeCheck">Display Play Time</label>
         <input type="checkbox" id="timeChecked">
@@ -331,9 +314,6 @@
         <label for="noiseCheck">Add Noise</label>
         <input type="checkbox" id="noiseChecked">
         <br>
-        <label for="lineCheck">Add Lines</label>
-        <input type="checkbox" id="lineChecked">
-        <br><br>
         <label for="albumCheck">View Album Cover</label>
         <input type="checkbox" id="albumChecked">
         <br><br>
