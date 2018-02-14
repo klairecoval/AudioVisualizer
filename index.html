@@ -24,7 +24,7 @@
       }
 	</style>
 	<script>
-	// An IIFE ("Iffy") - see the notes in mycourses
+	// An IIFE ("Iffy")
 	(function(){
 		"use strict";
 		
@@ -151,12 +151,6 @@
 			// this schedules a call to the update() method in 1/60 seconds
 			requestAnimationFrame(update);
 			
-			/*
-				Nyquist Theorem
-				http://whatis.techtarget.com/definition/Nyquist-Theorem
-				The array of data we get back is 1/2 the size of the sample rate 
-			*/
-			
 			// create a new array of 8-bit integers (0-255)
 			var data = new Uint8Array(NUM_SAMPLES/2); 
 			
@@ -169,11 +163,6 @@
 			
 			// DRAW!
 			ctx.clearRect(0,0,900,600);  
-
-			// var barWidth = 4;
-			// var barSpacing = 1;
-			// var barHeight = 100;
-			// var topSpacing = 50;
 
             var circleRadius = 4;
             var circleSpacing = 1;
@@ -227,6 +216,7 @@
             manipulatePixels();
 			 
 		} 
+
 		
 		// HELPER
 		function makeColor(red, green, blue, alpha){
@@ -318,8 +308,9 @@
 	<canvas id="canvas" width="900" height="600"></canvas>
 	<div id="controls">
 		<audio controls loop></audio>
-		<p id="status">???</p>
+		<p id="status">???</p> <!--Current song-->
         <br>
+        <!--Selectors-->
 		<label>Track: 
 			<select id="trackSelect" >
                 <option value="media/Invincible.mp3">Invincible</option>
@@ -349,6 +340,7 @@
                 <option value="waveform">Waveform</option>
             </select>
         </label>
+        <!--Check boxes-->
         <br><br>
         <label for="timeCheck">Display Play Time</label>
         <input type="checkbox" id="timeChecked">
@@ -361,6 +353,7 @@
         <br>
         <label for="albumCheck">View Album Cover</label>
         <input type="checkbox" id="albumChecked">
+        <!--Sliders-->
         <br><br>
         <label for="heightChange">Change Height</label>
         <input id="heightChanged" type="range" min="1" max="600" step="20" value="100">
