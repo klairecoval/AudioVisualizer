@@ -136,8 +136,7 @@
             //Full Screen Button
             document.querySelector("#fsButton").onclick = function(){
 				requestFullscreen(canvas);
-			};
-            	
+			};	
 		}
 		
 		function playStream(audioElement,path){
@@ -164,29 +163,37 @@
 			// DRAW!
 			ctx.clearRect(0,0,900,600);  
 
-			// var barWidth = 10;
-			// var barSpacing = 2;
-			// var barHeight = 100;
-			// var topSpacing = 250;
+			var barWidth = 10;
+			var barSpacing = 2;
+			var barHeight = 100;
+			var topSpacing = 200;
 
             var circleRadius = 5;
             var circleSpacing = 1;
             var circleHeight = 100;
-            var topSpacing = 20;
+            var circleSpacing = 7;
 			
 			// loop through the data and draw!
 			for(var i=0; i<data.length; i++) { 
                 
 				ctx.fillStyle = 'rgba(255,255,255,0.8)'; 
-                // ctx.fillStyle = '#ffffff';
 				
 				
                 // the higher the amplitude of the sample (bin) the taller the bar
 				// remember we have to draw our bars left-to-right and top-down
 				// ctx.fillRect(i * (barWidth + barSpacing),topSpacing + 256-data[i],barWidth,barHeight); 
+
+                ctx.fillStyle = 'yellow';
                 ctx.beginPath();
-                // ctx.arc(i * ((circleRadius * 2) + circleSpacing), topSpacing + 256-data[i], circleRadius, 0, Math.PI * 2, true);
-                ctx.arc(i * 15, topSpacing, (data[i] / 100) * 2, 0, Math.PI * 2, true);
+                ctx.arc(i * (barWidth + barSpacing), (topSpacing - circleRadius - 10) + 256-data[i], (data[i] / 100) * 2, 0, Math.PI * 2, true);
+
+                // ctx.arc(i * 15, circleSpacing, (data[i] / 100) * 2, 0, Math.PI * 2, true);
+
+                // using a for loop to create an array of circles 
+                // NEED TO FIND A WAY TO OPTIMIZE THE PERFORMANCE 
+                // for (let k = 0; k < canvas.height/2; k++) {
+                //     ctx.arc(i * 15, topSpacing * 5 * (k + 1), (data[i] / 50) * 2, 0, Math.PI * 2, true);
+                // }
                 ctx.closePath();
                 ctx.fill();
                 // console.log((i * (circleRadius * 2) + circleSpacing) + " " + topSpacing + 512-data[i]);
@@ -313,7 +320,7 @@
 	</script>
 </head>
 <body>
-	<canvas id="canvas" width="800" height="600"></canvas>
+	<canvas id="canvas" width="900" height="600"></canvas>
 	<div id="controls">
 		<audio controls loop></audio>
 		<p id="status">???</p> <!--Current song-->
