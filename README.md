@@ -22,7 +22,7 @@ Inspiration: [Hamza580](http://bit.ly/2EGhG03)
   - Check box
 - [ ] Frequency/waveform mode
   - Selector
-- [ ] Color selector 
+- [x] Color selector 
   - Selector
 - [ ] Height Slider 
   - Slider
