@@ -30,7 +30,7 @@ Inspiration: [Hamza580](http://bit.ly/2EGhG03)
   - Slider
 - [ ] Noise on lines in screen only 
   - Checkbox
-- [ ] Show album cover 
+- [x] Show album cover 
   - Checkbox
 - [x] Opacity changer
   - Checkbox
