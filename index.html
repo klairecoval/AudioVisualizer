@@ -173,12 +173,12 @@
 			var barWidth = 10;
 			var barSpacing = 2;
 			var barHeight = 100;
-			var topSpacing = 200;
+			// var topSpacing = 200;
 
             var circleRadius = 5;
-            var circleSpacing = 1;
-            var circleHeight = 100;
             var circleSpacing = 7;
+            var circleHeight = 100;
+            var topSpacing = 200;
 			
 			// loop through the data and draw!
 			for(var i=0; i<data.length; i++) { 
@@ -186,14 +186,13 @@
 				ctx.fillStyle = currColor; 
                 ctx.globalAlpha = opacity;
 				
-				
                 // the higher the amplitude of the sample (bin) the taller the bar
 				// remember we have to draw our bars left-to-right and top-down
 				// ctx.fillRect(i * (barWidth + barSpacing),topSpacing + 256-data[i],barWidth,barHeight); 
 
-                ctx.fillStyle = currColor;
                 ctx.beginPath();
-                ctx.arc(i * (barWidth + barSpacing), (topSpacing - circleRadius - 10) + 256-data[i], (data[i] / 100) * newRad, 0, Math.PI * 2, true);
+                ctx.arc(i * (circleSpacing) + circleRadius, topSpacing + (256-data[i]), newRad, 0, Math.PI * 2, true);
+                // ctx.arc(i * (barWidth + barSpacing), (topSpacing - circleRadius - 10) + 256-data[i], (data[i] / 100) * newRad, 0, Math.PI * 2, true);
 
                 // ctx.arc(i * 15, circleSpacing, (data[i] / 100) * 2, 0, Math.PI * 2, true);
 
@@ -205,38 +204,36 @@
                 ctx.closePath();
                 ctx.fill();
 
+                // //reddish circles
+                // var percent = data[i]/255;
+                // var circleRadius = percent;
+                // ctx.beginPath();
+                // ctx.fillStyle = currColor;
+                // ctx.arc(canvas.width/2, canvas.height/2, circleRadius, 0, 2 * Math.PI, false);
+                // ctx.fill();
+                // ctx.closePath();
                 
-                //reddish circles
-                var percent = data[i]/255;
-                var circleRadius = percent;
-                ctx.beginPath();
-                ctx.fillStyle = currColor;
-                ctx.arc(canvas.width/2, canvas.height/2, circleRadius, 0, 2 * Math.PI, false);
-                ctx.fill();
-                ctx.closePath();
+                // //blueish circles, bigger and more transparent
+                // ctx.beginPath();
+                // ctx.fillStyle = currColor;
+                // ctx.arc(canvas.width/2, canvas.height/2, circleRadius*1.5, 0, 2 * Math.PI, false);
+                // ctx.fill();
+                // ctx.closePath();
                 
-                //blueish circles, bigger and more transparent
-                ctx.beginPath();
-                ctx.fillStyle = currColor;
-                ctx.arc(canvas.width/2, canvas.height/2, circleRadius*1.5, 0, 2 * Math.PI, false);
-                ctx.fill();
-                ctx.closePath();
-                
-                //yellow-ish circles, smaller
-                ctx.save();
-                ctx.beginPath();
-                ctx.fillStyle = currColor;
-                ctx.arc(canvas.width/2, canvas.height/2, circleRadius * .50, 0, 2 * Math.PI, false);
-                ctx.fill();
-                ctx.closePath();
-                ctx.restore();
+                // //yellow-ish circles, smaller
+                // ctx.save();
+                // ctx.beginPath();
+                // ctx.fillStyle = currColor;
+                // ctx.arc(canvas.width/2, canvas.height/2, circleRadius * .50, 0, 2 * Math.PI, false);
+                // ctx.fill();
+                // ctx.closePath();
+                // ctx.restore();
 				
 			}
             
             manipulatePixels();
 			 
 		} 
-
 		
 		// HELPER
 		function makeColor(red, green, blue, alpha){
@@ -333,7 +330,7 @@
         <!--Selectors-->
 		<label>Track: 
 			<select id="trackSelect" >
-                <option value="media/Invincible.mp3">Invincible</option>
+                <option value="media/Invincible.mp3" selected>Invincible</option>
                 <option value="media/Shelter.mp3">Shelter (Pure 100% Remix)</option>
                 <option value="media/Feel Good.mp3">Feel Good</option>
 				<option value="media/New Adventure Theme.mp3">New Adventure Theme</option>
