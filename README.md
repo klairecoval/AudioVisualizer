@@ -20,13 +20,13 @@ Inspiration: [Hamza580](http://bit.ly/2EGhG03)
   - Checkbox
 - [ ] Show play time
   - Check box
-- [ ] Frequency/waveform mode
+- [ ] Frequency/waveform mode //!!!
   - Selector
 - [x] Color selector 
   - Selector
 - [ ] Height Slider 
   - Slider
-- [ ] Line width changer 
+- [x] Line width changer 
   - Slider
 - [ ] Noise on lines in screen only 
   - Checkbox
@@ -36,6 +36,14 @@ Inspiration: [Hamza580](http://bit.ly/2EGhG03)
   - Checkbox
 - [ ] Moving the lines/bars across the screen versus making it static
   - Checkbox or selector (either one works)
+
+## To Fix
+- [ ] "Now playing" displaying inaccurate track name
+- [ ] bg images not displaying 
+- [ ] need a cleaner GUI
+- [ ] rounded rectangle
+- [ ] need to add waveform data
+- [ ] add new audio node
 
 ## Class Resources
 - [Main Project Resources](http://igm.rit.edu/~acjvks/courses/2018-spring/330/html/project-1/)
