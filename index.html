@@ -22,6 +22,10 @@
         width: 900px;
         margin: 0 auto;
       }
+
+      img{
+          display: none;
+      }
 	</style>
 	<script>
 	// An IIFE ("Iffy")
@@ -49,6 +53,13 @@
         var displayMode = "frequency";
         var opacity = 0.5;
         var newRad = 2;
+        var images = [
+    'images/NCSInvincible.png',
+    'images/ShelterRemix.png',
+    'images/NCSFeelGood.png'
+];
+var backImg = new Image();
+var currTrack = "";
 
         var background = new Image();
 		
@@ -71,7 +82,18 @@
 			
 			// start animation loop
 			update();
+            loadImages(images);
+
 		}
+
+        function loadImages(imgArr, targetId){
+            for(var i=0; i< imgArr.length; i++) {
+                console.log(imgArr[i]);
+                var img = new Image();
+                img.src = imgArr[i];
+                document.getElementById('output').appendChild(img);
+            }
+        }   
 		
 		
 		function createWebAudioContextWithAnalyserNode(audioElement) {
@@ -109,6 +131,7 @@
             //Selectors
 			document.querySelector("#trackSelect").onchange = function(e){
 				playStream(audioElement,e.target.value);
+                currTrack = e.target.value;
 			};
             document.querySelector("#colorChooser").onchange = function(e){
 				currColor = e.target.value;
@@ -234,7 +257,7 @@
 			}
             
             manipulatePixels();
-			 
+			 albumDisplay();
 		} 
 		
 		// HELPER
@@ -242,6 +265,21 @@
    			var color='rgba('+red+','+green+','+blue+', '+alpha+')';
    			return color;
 		}
+
+        function albumDisplay(){
+            if(album){
+                if(currTrack == "media/Invincible.mp3"){
+                    backImg.src = images[0];
+                    ctx.drawImage(backImg, 0, 0);
+                } else if(currTrack == "media/Shelter.mp3"){
+                    backImg.src = images[1];
+                    ctx.drawImage(backImg, 0, 0);
+                } else if(currTrack == "media/Feel Good.mp3"){
+                    backImg.src = images[2];
+                    ctx.drawImage(backImg, 0, 0);
+                }
+            }
+        }
         
         function manipulatePixels(){
             //i)Getallofthergbapixeldataofthecanvasbygrabbingthe
@@ -305,17 +343,6 @@
             //putthemodifieddatabackonthecanvas
             ctx.putImageData(imageData,0,0);
         }
-
-        function imageShow(){
-            //var background = new Image();
-                if(album){
-                    if(audioElement.src == 'media/Invincible.mp3'){
-                    background.src = 'images/NCSInvincible.png';
-                    ctx.drawImage(background, 0, 0);
-                    console.log("trethhb");
-                }
-            }
-        }
 		
 		 // FULL SCREEN MODE
 		function requestFullscreen(element) {
@@ -346,10 +373,10 @@
         <!--Selectors-->
 		<label>Track: 
 			<select id="trackSelect" >
-                <option value="media/Invincible.mp3" selected>Invincible</option>
+                <option value="media/Invincible.mp3">Invincible</option>
                 <option value="media/Shelter.mp3">Shelter (Pure 100% Remix)</option>
                 <option value="media/Feel Good.mp3">Feel Good</option>
-				<option value="media/New Adventure Theme.mp3">New Adventure Theme</option>
+				<option value="media/New Adventure Theme.mp3" selected>New Adventure Theme</option>
 				<option value="media/Peanuts Theme.mp3">Peanuts Theme</option>
 				<option value="media/The Picard Song.mp3">The Picard Song</option>
 			</select>
@@ -400,6 +427,7 @@
         <input id="opacityChanged" type="range" min="0.1" max="1" value="0.5" step="0.1">
         <br><br>
         <button id="fsButton">Go Full Screen</button>
+        <img id="output"></img>
 	</div>
 </body>
 </html>
