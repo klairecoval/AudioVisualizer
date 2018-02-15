@@ -42,6 +42,8 @@ Inspiration: [Hamza580](http://bit.ly/2EGhG03)
 - [ ] bg images not displaying 
 - [ ] need a cleaner GUI
 - [ ] rounded rectangle
+- [ ] need to add waveform data
+- [ ] add new audio node
 
 ## Class Resources
 - [Main Project Resources](http://igm.rit.edu/~acjvks/courses/2018-spring/330/html/project-1/)
