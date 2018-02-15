@@ -5,11 +5,12 @@
 	<title>Web Audio Visualizer</title>
 	<style>
 	body {
-         background: #eeeeee;
-         font-family: tahoma, verdana, sans serif;
-      }
+        background: #111111;
+        font-family: tahoma, verdana, sans serif;
+        color: #fff;
+    }
 
-      canvas {
+    canvas {
         margin-right:auto;
         margin-left: auto;
         padding: 0;
@@ -17,11 +18,12 @@
         box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
         background: black;
     }
-      
-      #controls{
+    
+    #controls{
         width: 900px;
         margin: 0 auto;
-      }
+    }
+
 	</style>
 	<script>
 	// An IIFE ("Iffy")
@@ -165,14 +167,14 @@
 			analyserNode.getByteFrequencyData(data);
 		
 			// OR
-			//analyserNode.getByteTimeDomainData(data); // waveform data
+			// analyserNode.getByteTimeDomainData(data); // waveform data
 			
 			// DRAW!
 			ctx.clearRect(0,0,900,600);  
 
-			var barWidth = 10;
-			var barSpacing = 2;
-			var barHeight = 100;
+			// var barWidth = 10;
+			// var barSpacing = 2;
+			// var barHeight = 100;
 			// var topSpacing = 200;
 
             var circleRadius = 5;
