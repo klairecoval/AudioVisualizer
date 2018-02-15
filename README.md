@@ -20,13 +20,13 @@ Inspiration: [Hamza580](http://bit.ly/2EGhG03)
   - Checkbox
 - [ ] Show play time
   - Check box
-- [ ] Frequency/waveform mode
+- [ ] Frequency/waveform mode //!!!
   - Selector
 - [x] Color selector 
   - Selector
 - [ ] Height Slider 
   - Slider
-- [ ] Line width changer 
+- [x] Line width changer 
   - Slider
 - [ ] Noise on lines in screen only 
   - Checkbox
