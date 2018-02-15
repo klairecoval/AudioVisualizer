@@ -37,6 +37,12 @@ Inspiration: [Hamza580](http://bit.ly/2EGhG03)
 - [ ] Moving the lines/bars across the screen versus making it static
   - Checkbox or selector (either one works)
 
+## To Fix
+- [ ] "Now playing" displaying inaccurate track name
+- [ ] bg images not displaying 
+- [ ] need a cleaner GUI
+- [ ] rounded rectangle
+
 ## Class Resources
 - [Main Project Resources](http://igm.rit.edu/~acjvks/courses/2018-spring/330/html/project-1/)
 - [Checklist](http://igm.rit.edu/~acjvks/courses/2018-spring/330/html/p1-checklist/project-1-checklist.html)
