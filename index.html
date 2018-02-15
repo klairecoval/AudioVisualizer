@@ -32,7 +32,7 @@
 		var SOUND_1 = 'media/New Adventure Theme.mp3';
 		var SOUND_2 = 'media/Peanuts Theme.mp3';
 		var SOUND_3 = 'media/The Picard Song.mp3';
-        var SOUND_4 = 'media/Inincivle.mp3'
+        var SOUND_4 = 'media/Invincible.mp3';
 		var audioElement;
 		var analyserNode;
 		var canvas, ctx;
@@ -47,6 +47,8 @@
         var displayMode = "frequency";
         var opacity = 0.5;
         var newRad = 2;
+
+        var background = new Image();
 		
 		function init(){
 			// set up canvas stuff
@@ -264,7 +266,10 @@
             //data[i+3]isthealphavalue
             for(var i=0; i<length ;i+=4){
                 //iv)increaseredvalueonly
-                
+        
+
+
+
                 
                 //v)inverteverycolorchannel
                 if(invert){
@@ -301,6 +306,17 @@
             //putthemodifieddatabackonthecanvas
             ctx.putImageData(imageData,0,0);
         }
+
+        function imageShow(){
+            //var background = new Image();
+                if(album){
+                    if(audioElement.src == 'media/Invincible.mp3'){
+                    background.src = 'images/NCSInvincible.png';
+                    ctx.drawImage(background, 0, 0);
+                    console.log("trethhb");
+                }
+            }
+        }
 		
 		 // FULL SCREEN MODE
 		function requestFullscreen(element) {
@@ -319,7 +335,7 @@
 		
 		window.addEventListener("load",init);
 	}());
-		
+
 	</script>
 </head>
 <body>
