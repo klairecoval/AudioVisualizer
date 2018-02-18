@@ -61,8 +61,15 @@
         var newRad = 2;
         let soundController;
         var data; 
+<<<<<<< HEAD
     var currentTrack;
         
+=======
+        var currentTrack;
+        let changeDisplayMode;
+
+        var background = new Image();
+>>>>>>> cc58f371457da7297c998f9a447d6a48f956359e
 		
 		function init() {
 			// set up canvas stuff
@@ -188,7 +195,7 @@
 			
 			// populate the array with the frequency data
 			// notice these arrays can be passed "by reference" 
-			//analyserNode.getByteFrequencyData(data);
+			analyserNode.getByteFrequencyData(data);
 		
 			// OR
 			// analyserNode.getByteTimeDomainData(data); // waveform data
@@ -394,9 +401,9 @@
             let f1 = gui.addFolder('Window');
             let trackSelect = f1.add(text, 'track', ['Invincible', 'Shelter (100% Remix)', 'Feel Good', 'New Adventure Theme', 'Peanuts Theme', 'The Picard Song']);
             // let trackSelect = f1.add(settings, 'track', ['Invincible', 'Shelter (100% Remix)', 'Feel Good', 'New Adventure Theme', 'Peanuts Theme', 'The Picard Song']).onChange(changeTrack);
-            trackSelect.onChange(function(value) {
-                console.log(value);
-            });
+            // trackSelect.onChange(function(value) {
+            //     console.log(value);
+            // });
             soundController = trackSelect;
             trackSelect.onFinishChange(function(value) {
                 switch (value) {
@@ -431,6 +438,7 @@
 
             let displayCover = f1.add(text, 'displayAlbumCover');
             // set the value of the check box to its opposite value
+<<<<<<< HEAD
             displayCover.onChange(function(value) {
                 console.log(value);
                 if(value){
@@ -448,6 +456,11 @@
             }
                 value = !value;
                 console.log(trackSelect);
+=======
+            displayCover.onFinishChange(function(value) {
+                value != value;
+                albumDisplay();
+>>>>>>> cc58f371457da7297c998f9a447d6a48f956359e
                 console.log(value);
             });
 
@@ -463,12 +476,18 @@
                 newRad = value;
                 console.log("new value: " + value);
             });
+            let displayMode = "frequency";
+            changeDisplayMode = f2.add(text, 'changeMode', ['frequency', 'waveform']);
+            changeDisplayMode.onFinishChange(function(value){
+                // if(displayMode == 'frequency'){
+                //     analyserNode.getByteFrequencyData(data);
+                // } else if(displayMode == 'waveform'){
+                //     analyserNode.getByteTimeDomainData(data); // waveform data
+                // }
 
-            let changeDisplayMode = f2.add(text, 'changeMode', ['frequency', 'waveform']);
-            changeDisplayMode.onFinishChange(function(displayMode){
-                if(displayMode == 'frequency'){
+                if(value == displayMode){
                     analyserNode.getByteFrequencyData(data);
-                } else if(displayMode == 'waveform'){
+                }else {
                     analyserNode.getByteTimeDomainData(data); // waveform data
                 }
                 console.log(displayMode);
