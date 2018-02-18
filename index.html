@@ -31,17 +31,27 @@
 	</style>
 	<script>
 	// An IIFE ("Iffy")
+    var newRad = 2;
+    var SOUND_1 = 'media/New Adventure Theme.mp3';
+    var SOUND_2 = 'media/Peanuts Theme.mp3';
+    var SOUND_3 = 'media/The Picard Song.mp3';
+    var SOUND_4 = 'media/Invincible.mp3';
+    var SOUND_5 = 'media/Shelter.mp3';
+    var SOUND_6 = 'media/Feel Good.mp3';
+    var audioElement;
+    let soundController;
+
 	(function(){
 		"use strict";
 		
 		var NUM_SAMPLES = 256;
-		var SOUND_1 = 'media/New Adventure Theme.mp3';
-		var SOUND_2 = 'media/Peanuts Theme.mp3';
-		var SOUND_3 = 'media/The Picard Song.mp3';
-        var SOUND_4 = 'media/Invincible.mp3';
-        var SOUND_5 = 'media/Shelter.mp3';
-        var SOUND_6 = 'media/Feel Good.mp3';
-		var audioElement;
+		// var SOUND_1 = 'media/New Adventure Theme.mp3';
+		// var SOUND_2 = 'media/Peanuts Theme.mp3';
+		// var SOUND_3 = 'media/The Picard Song.mp3';
+        // var SOUND_4 = 'media/Invincible.mp3';
+        // var SOUND_5 = 'media/Shelter.mp3';
+        // var SOUND_6 = 'media/Feel Good.mp3';
+		// var audioElement;
 		var analyserNode;
 		var canvas, ctx;
         var invert = false;
@@ -54,7 +64,6 @@
         var currColor = "white";
         var displayMode = "frequency";
         var opacity = 0.5;
-        var newRad = 2;
         var images = [
     'images/NCSInvincible.png',
     'images/ShelterRemix.png',
@@ -80,7 +89,81 @@ var currTrack = "";
 			setupUI();
 			
 			// load and play default sound into audio element
-			playStream(audioElement,SOUND_1);
+			playStream(audioElement,SOUND_4);
+
+            // TESTING
+            let text = new controls();
+            let gui = new dat.GUI();
+
+            // adding folders to organize the gui information
+            // the content in the Window folder changes what you can ADD to the window
+            let f1 = gui.addFolder('Window');
+            let trackSelect = f1.add(text, 'track', ['Invincible', 'Shelter (100% Remix)', 'Feel Good', 'New Adventure Theme', 'Peanuts Theme', 'The Picard Song']);
+            // trackSelect.onChange(function(value) {
+            //     console.log(value);
+            // });
+            soundController = trackSelect;
+            trackSelect.onFinishChange(function(value) {
+                switch (value) {
+                    case value == 'Invincible': 
+                        // audioElement.src = SOUND_4;
+                        // audioElement.play();
+                        playStream(audioElement,SOUND_4);
+                        break;
+                    case value == 'Shelter (100% Remix)':
+                        // audioElement.src = SOUND_5;
+                        // audioElement.play();
+                        playStream(audioElement,SOUND_5);
+                        break;
+                    case value == 'Feel Good': 
+                        // audioElement.src = SOUND_6;
+                        // audioElement.play();
+                        playStream(audioElement,SOUND_6);
+                        break;
+                    case value == 'New Adventure Theme':
+                        // audioElement.src = SOUND_1;
+                        // audioElement.play();
+                        playStream(audioElement,SOUND_1);
+                        break;
+                    case value == 'Peanuts Theme':
+                        // audioElement.src = SOUND_2;
+                        // audioElement.play();
+                        playStream(audioElement,SOUND_2);
+                        break;
+                    case value == 'The Picard Song':
+                        // audioElement.src = SOUND_3;
+                        // audioElement.play();
+                        playStream(audioElement,SOUND_3);
+                        break;
+                }
+                console.log(audioElement.src);
+            });
+            f1.add(text, 'displayPlayTime');
+
+            let displayCover = f1.add(text, 'displayAlbumCover');
+            // set the value of the check box to its opposite value
+            displayCover.onFinishChange(function(value) {
+                value != value;
+                console.log(value);
+            });
+
+            // the content in the Visualizer folder changes what the data will look like
+            let f2 = gui.addFolder('Visualizer');
+            f2.add(text, 'color', [ 'red', 'orange', 'yellow', 'green', 'blue', 'purple', 'black', 'white' ] );
+            f2.add(text, 'changeOpacity', 0.1, 0.5);
+            let controlWidth = f2.add(text, 'changeWidth', 1, 10); // Min and max
+
+            // update newRad with the value from the gui
+            controlWidth.onFinishChange(function(value) {
+                // fires when a controller loses focus
+                newRad = value;
+                console.log("new value: " + value);
+            });
+
+            f2.add(text, 'changeMode', ['frequency', 'waveform']);
+            f2.add(text, 'addNoise');
+
+
 			
 			// start animation loop
 			update();
@@ -259,7 +342,7 @@ var currTrack = "";
 			}
             
             manipulatePixels();
-			 albumDisplay();
+			albumDisplay();
 		} 
 		
 		// HELPER
@@ -369,29 +452,82 @@ var currTrack = "";
             this.addNoise = false;
             this.displayPlayTime = false;
             this.changeOpacity = 0.8;
-            this.changeWidth = newRad;
+            // newRad = controller.getValue();
+            this.changeWidth = 1;
         };
 
+        /**************
+         DON'T DELETE I'M STILL TESTING!! 
+        ***************/
         // when the window is done loading, load the gui
-        window.onload = function() {
-            let text = new controls();
-            let gui = new dat.GUI();
+        // window.onload = function() {
+        //     let text = new controls();
+        //     let gui = new dat.GUI();
 
-            // adding folders to organize the gui information
-            // the content in the Window folder changes what you can ADD to the window
-            let f1 = gui.addFolder('Window');
-            f1.add(text, 'track', ['Invincible', 'Shelter (100% Remix)', 'Feel Good', 'New Adventure Theme', 'Peanuts Theme', 'The Picard Song']);
-            f1.add(text, 'displayPlayTime');
-            f1.add(text, 'displayAlbumCover');
+        //     // adding folders to organize the gui information
+        //     // the content in the Window folder changes what you can ADD to the window
+        //     let f1 = gui.addFolder('Window');
+        //     let trackSelect = f1.add(text, 'track', ['Invincible', 'Shelter (100% Remix)', 'Feel Good', 'New Adventure Theme', 'Peanuts Theme', 'The Picard Song']);
+        //     // trackSelect.onChange(function(value) {
+        //     //     console.log(value);
+        //     // });
+        //     soundController = trackSelect;
+        //     trackSelect.onFinishChange(function(value) {
+        //         switch (value) {
+        //             case value == 'Invincible': 
+        //                 audioElement.src = SOUND_4;
+        //                 audioElement.play();
+        //                 break;
+        //             case value == 'Shelter (100% Remix)':
+        //                 audioElement.src = SOUND_5;
+        //                 audioElement.play();
+        //                 break;
+        //             case value == 'Feel Good': 
+        //                 audioElement.src = SOUND_6;
+        //                 audioElement.play();
+        //                 break;
+        //             case value == 'New Adventure Theme':
+        //                 audioElement.src = SOUND_1;
+        //                 audioElement.play();
+        //                 break;
+        //             case value == 'Peanuts Theme':
+        //                 audioElement.src = SOUND_2;
+        //                 audioElement.play();
+        //                 break;
+        //             case value == 'The Picard Song':
+        //                 audioElement.src = SOUND_3;
+        //                 audioElement.play();
+        //                 break;
+        //         }
+        //         console.log(audioElement.src);
+        //     });
+        //     f1.add(text, 'displayPlayTime');
 
-            // the content in the Visualizer folder changes what the data will look like
-            let f2 = gui.addFolder('Visualizer');
-            f2.add(text, 'color', [ 'red', 'orange', 'yellow', 'green', 'blue', 'purple', 'black', 'white' ] );
-            f2.add(text, 'changeOpacity', 0.1, 0.5);
-            f2.add(text, 'changeWidth', 1, 10); // Min and max
-            f2.add(text, 'changeMode', ['frequency', 'waveform']);
-            f2.add(text, 'addNoise');
-        };
+        //     let displayCover = f1.add(text, 'displayAlbumCover');
+        //     // set the value of the check box to its opposite value
+        //     displayCover.onFinishChange(function(value) {
+        //         value != value;
+        //         console.log(value);
+        //     });
+
+        //     // the content in the Visualizer folder changes what the data will look like
+        //     let f2 = gui.addFolder('Visualizer');
+        //     f2.add(text, 'color', [ 'red', 'orange', 'yellow', 'green', 'blue', 'purple', 'black', 'white' ] );
+        //     f2.add(text, 'changeOpacity', 0.1, 0.5);
+        //     let controlWidth = f2.add(text, 'changeWidth', 1, 10); // Min and max
+
+        //     // update newRad with the value from the gui
+        //     controlWidth.onFinishChange(function(value) {
+        //         // fires when a controller loses focus
+        //         newRad = value;
+        //         console.log("new value: " + value);
+        //     });
+
+        //     f2.add(text, 'changeMode', ['frequency', 'waveform']);
+        //     f2.add(text, 'addNoise');
+
+            
+        // };
 		
 		window.addEventListener("load",init);
 	}());
