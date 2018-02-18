@@ -433,10 +433,15 @@
 
             let displayCover = f1.add(text, 'displayAlbumCover');
             // set the value of the check box to its opposite value
-            displayCover.onFinishChange(function(value) {
+            displayCover.onChange(function(value) {
                 value != value;
-                albumDisplay();
+                // albumDisplay();
+                console.log(trackSelect);
                 console.log(value);
+            });
+
+            displayCover.onFinishChange(function() {
+                console.log(currentTrack);
             });
 
             // the content in the Visualizer folder changes what the data will look like
