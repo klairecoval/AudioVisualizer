@@ -53,7 +53,7 @@
         var album = false;
         var lineHeight = 200;
         var currColor = "white";
-        var displayMode = "frequency";
+        // var displayMode = "frequency";
         var opacity = 0.5;
         var images = ['images/NCSInvincible.png', 'images/ShelterRemix.png','images/NCSFeelGood.png'];
         var backImg = new Image();
@@ -62,8 +62,8 @@
         let soundController;
         var data; 
         var currentTrack;
-        let changeDisplayMode;
         let freq = true;
+        let time;
 
         var background = new Image();
 		
@@ -89,6 +89,11 @@
             loadImages(images);
 
 		}
+
+        function drawTime(ctx) {
+            time = "0 / 0";
+            ctx.fillText(time, 10, 10);
+        }
 
         function loadImages(imgArr, targetId){
             for(var i=0; i< imgArr.length; i++) {
@@ -191,22 +196,16 @@
 			
 			// populate the array with the frequency data
 			// notice these arrays can be passed "by reference" 
+            // checks to see if the bool freq is true and if it is, display the frequency data
             if (freq) {
-                analyserNode.getByteFrequencyData(data);
+                analyserNode.getByteFrequencyData(data); // frequency data
             }
-			// analyserNode.getByteFrequencyData(data);
 		
 			// OR
             else {
-                analyserNode.getByteTimeDomainData(data); 
+                analyserNode.getByteTimeDomainData(data); // waveform data
             }
-			// analyserNode.getByteTimeDomainData(data); // waveform data
-            // if(displayMode == 'frequency'){
-            //         analyserNode.getByteFrequencyData(data);
-            //     } else if(displayMode == 'waveform'){
-            //         analyserNode.getByteTimeDomainData(data); // waveform data
-            //     }
-			
+
 			// DRAW!
 			ctx.clearRect(0,0,900,600);  
 
@@ -382,7 +381,7 @@
             this.changeMode = 'frequency';
             this.addNoise = false;
             this.displayPlayTime = false;
-            this.changeOpacity = 0.8;
+            this.changeOpacity = opacity = 0.5;
             this.changeWidth = 1;
         };
 
@@ -394,11 +393,11 @@
             // adding folders to organize the gui information
             // the content in the Window folder changes what you can ADD to the window
             let f1 = gui.addFolder('Window');
+
+            let audioPart = document.querySelector('audio');
+            // time = audioPart.played.end(0);
+            // changing the track that is currently playing with the gui
             let trackSelect = f1.add(text, 'track', ['Invincible', 'Shelter (100% Remix)', 'Feel Good', 'New Adventure Theme', 'Peanuts Theme', 'The Picard Song']);
-            // let trackSelect = f1.add(settings, 'track', ['Invincible', 'Shelter (100% Remix)', 'Feel Good', 'New Adventure Theme', 'Peanuts Theme', 'The Picard Song']).onChange(changeTrack);
-            // trackSelect.onChange(function(value) {
-            //     console.log(value);
-            // });
             soundController = trackSelect;
             trackSelect.onFinishChange(function(value) {
                 switch (value) {
@@ -431,7 +430,15 @@
                 console.log(value);
             });
 
-            f1.add(text, 'displayPlayTime');
+            let showTime = f1.add(text, 'displayPlayTime');
+            showTime.onChange(function(value) {
+                value = !value;
+                if (value) {
+                    drawTime(ctx);
+                }  
+            });
+
+
 
             let displayCover = f1.add(text, 'displayAlbumCover');
             // set the value of the check box to its opposite value
@@ -459,10 +466,23 @@
 
             // the content in the Visualizer folder changes what the data will look like
             let f2 = gui.addFolder('Visualizer');
-            f2.add(text, 'color', [ 'red', 'orange', 'yellow', 'green', 'blue', 'purple', 'black', 'white' ] );
-            f2.add(text, 'changeOpacity', 0.1, 0.5);
-            let controlWidth = f2.add(text, 'changeWidth', 1, 10); // Min and max
 
+            // changing the color of the circles
+            let colorChange = f2.add(text, 'color', [ 'red', 'orange', 'yellow', 'green', 'blue', 'purple', 'black', 'white' ] );
+            colorChange.onChange(function(value) {
+                currColor = value;
+                console.log("color: " + value);
+            });
+
+            // changing the opacity according to the GUI value
+            let controlOpacity = f2.add(text, 'changeOpacity', 0.1, 1.0);
+            controlOpacity.onFinishChange(function(value) {
+                opacity = value;
+                console.log("opacity: " + value);
+            });
+
+            // changing the radius of the circle according to the GUI
+            let controlWidth = f2.add(text, 'changeWidth', 1, 10); // Min and max
             // update newRad with the value from the gui
             controlWidth.onFinishChange(function(value) {
                 // fires when a controller loses focus
@@ -470,9 +490,10 @@
                 console.log("new value: " + value);
             });
 
+            // altering the data display with the gui
             let displayMode1 = "frequency";
             let displayMode2 = "waveform";
-            changeDisplayMode = f2.add(text, 'changeMode', ['frequency', 'waveform']);
+            let changeDisplayMode = f2.add(text, 'changeMode', ['frequency', 'waveform']);
             changeDisplayMode.onChange(function(value){
                 if(value == displayMode1){
                     freq = true;
@@ -498,8 +519,9 @@
 <body>
 	<canvas id="canvas" width="900" height="600"></canvas>
 	<div id="controls">
-		<audio controls loop></audio>
-		<p id="status">???</p> <!--Current song-->
+		<audio controls loop id="track" ontimeupdate="document.getElementById('tracktime').innerHTML = Math.floor(this.currentTime) + ' / ' + Math.floor(this.duration);"></audio>
+		<span id="tracktime">0 / 0</span>
+        <p id="status">???</p> <!--Current song-->
         <br>
         <!--Selectors-->
 		<label>Track: 
