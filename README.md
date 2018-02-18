@@ -16,11 +16,11 @@ Inspiration: [Hamza580](http://bit.ly/2EGhG03)
 - [x] Add now playing  
 
 ### Controls (need 1 selector, 2 sliders, 3 checkboxes) //All Added, not functional
-- [ ] Invert button
+- [x] Invert button
   - Checkbox
 - [ ] Show play time
   - Check box
-- [ ] Frequency/waveform mode //!!!
+- [x] Frequency/waveform mode //!!!
   - Selector
 - [x] Color selector 
   - Selector
@@ -38,11 +38,10 @@ Inspiration: [Hamza580](http://bit.ly/2EGhG03)
   - Checkbox or selector (either one works)
 
 ## To Fix
-- [ ] "Now playing" displaying inaccurate track name
-- [ ] bg images not displaying 
+- [x] bg images not displaying 
 - [ ] need a cleaner GUI
 - [ ] rounded rectangle
-- [ ] need to add waveform data
+- [x] need to add waveform data
 - [ ] add new audio node
 
 ## Class Resources
