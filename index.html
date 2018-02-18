@@ -360,8 +360,8 @@ var currTrack = "";
 			// .. and do nothing if the method is not supported
 		};
 		
+        // sets the default values for the gui
         let controls = function() {
-            // this.message = 'test';
             this.track = 'Invincible';
             this.color = "white";
             this.displayAlbumCover = false;
@@ -370,28 +370,27 @@ var currTrack = "";
             this.displayPlayTime = false;
             this.changeOpacity = 0.8;
             this.changeWidth = newRad;
-            // this.displayOutline = false;
-            // this.explode = function() {  };
-            // Define render logic ...
         };
 
+        // when the window is done loading, load the gui
         window.onload = function() {
-            var text = new controls();
-            var gui = new dat.GUI();
-            // gui.add(text, 'message');
+            let text = new controls();
+            let gui = new dat.GUI();
+
+            // adding folders to organize the gui information
+            // the content in the Window folder changes what you can ADD to the window
             let f1 = gui.addFolder('Window');
             f1.add(text, 'track', ['Invincible', 'Shelter (100% Remix)', 'Feel Good', 'New Adventure Theme', 'Peanuts Theme', 'The Picard Song']);
             f1.add(text, 'displayPlayTime');
+            f1.add(text, 'displayAlbumCover');
 
+            // the content in the Visualizer folder changes what the data will look like
             let f2 = gui.addFolder('Visualizer');
             f2.add(text, 'color', [ 'red', 'orange', 'yellow', 'green', 'blue', 'purple', 'black', 'white' ] );
             f2.add(text, 'changeOpacity', 0.1, 0.5);
             f2.add(text, 'changeWidth', 1, 10); // Min and max
             f2.add(text, 'changeMode', ['frequency', 'waveform']);
-            f2.add(text, 'displayAlbumCover');
             f2.add(text, 'addNoise');
-            // gui.add(text, 'displayOutline');
-            // gui.add(text, 'explode');
         };
 		
 		window.addEventListener("load",init);
