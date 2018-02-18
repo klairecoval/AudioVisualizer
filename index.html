@@ -60,6 +60,7 @@
         var currTrack = "";
         var newRad = 2;
         let soundController;
+        var data; 
     var currentTrack;
         
         var background = new Image();
@@ -184,7 +185,7 @@
 			requestAnimationFrame(update);
 			
 			// create a new array of 8-bit integers (0-255)
-			var data = new Uint8Array(NUM_SAMPLES/2); 
+			data = new Uint8Array(NUM_SAMPLES/2); 
 			
 			// populate the array with the frequency data
 			// notice these arrays can be passed "by reference" 
@@ -192,11 +193,11 @@
 		
 			// OR
 			// analyserNode.getByteTimeDomainData(data); // waveform data
-            if(displayMode == 'frequency'){
-                    analyserNode.getByteFrequencyData(data);
-                } else if(displayMode == 'waveform'){
-                    analyserNode.getByteTimeDomainData(data); // waveform data
-                }
+            // if(displayMode == 'frequency'){
+            //         analyserNode.getByteFrequencyData(data);
+            //     } else if(displayMode == 'waveform'){
+            //         analyserNode.getByteTimeDomainData(data); // waveform data
+            //     }
 			
 			// DRAW!
 			ctx.clearRect(0,0,900,600);  
@@ -449,11 +450,14 @@
                 console.log("new value: " + value);
             });
 
-            f2.add(text, 'changeMode', ['frequency', 'waveform']);
-            changeMode.onFinishChange(function(){
-                if () {
-                    //
+            let changeDisplayMode = f2.add(text, 'changeMode', ['frequency', 'waveform']);
+            changeDisplayMode.onFinishChange(function(displayMode){
+                if(displayMode == 'frequency'){
+                    analyserNode.getByteFrequencyData(data);
+                } else if(displayMode == 'waveform'){
+                    analyserNode.getByteTimeDomainData(data); // waveform data
                 }
+                console.log(displayMode);
             });
             f2.add(text, 'addNoise');
 
