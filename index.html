@@ -61,15 +61,11 @@
         var newRad = 2;
         let soundController;
         var data; 
-<<<<<<< HEAD
-    var currentTrack;
-        
-=======
         var currentTrack;
         let changeDisplayMode;
+        let freq = true;
 
         var background = new Image();
->>>>>>> cc58f371457da7297c998f9a447d6a48f956359e
 		
 		function init() {
 			// set up canvas stuff
@@ -195,9 +191,15 @@
 			
 			// populate the array with the frequency data
 			// notice these arrays can be passed "by reference" 
-			analyserNode.getByteFrequencyData(data);
+            if (freq) {
+                analyserNode.getByteFrequencyData(data);
+            }
+			// analyserNode.getByteFrequencyData(data);
 		
 			// OR
+            else {
+                analyserNode.getByteTimeDomainData(data); 
+            }
 			// analyserNode.getByteTimeDomainData(data); // waveform data
             // if(displayMode == 'frequency'){
             //         analyserNode.getByteFrequencyData(data);
@@ -372,16 +374,9 @@
 			// .. and do nothing if the method is not supported
 		};
 
-        // const settings = {
-        //    //linewidth: strokeWidth,
-        //    // linespace: lineSpacing,
-        //     track: ['Invincible', 'Shelter (100% Remix)', 'Feel Good', 'New Adventure Theme', 'Peanuts Theme', 'The Picard Song']
-        // };
-		
         // sets the default values for the gui
         let controls = function() {
             this.track = currentTrack = 'Invincible';
-            // this.track = settings.track;
             this.color = "white";
             this.displayAlbumCover = false;
             this.changeMode = 'frequency';
@@ -433,36 +428,29 @@
                         break;
                 }
                 console.log(audioElement.src);
+                console.log(value);
             });
+
             f1.add(text, 'displayPlayTime');
 
             let displayCover = f1.add(text, 'displayAlbumCover');
             // set the value of the check box to its opposite value
             displayCover.onChange(function(value) {
-<<<<<<< HEAD
-=======
                 console.log(value);
                 if(value){
-                if(trackSelect == "Invincible"){
-                    backImg.src = images[0];
-                    ctx.drawImage(backImg, 0, 0);
-                    
-                } else if(trackSelect == "Shelter"){
-                    backImg.src = images[1];
-                    ctx.drawImage(backImg, 0, 0);
-                } else if(trackSelect== "Feel Good"){
-                    backImg.src = images[2];
-                    ctx.drawImage(backImg, 0, 0);
+                    if(trackSelect == "Invincible"){
+                        backImg.src = images[0];
+                        ctx.drawImage(backImg, 0, 0);
+                    } else if(trackSelect == "Shelter"){
+                        backImg.src = images[1];
+                        ctx.drawImage(backImg, 0, 0);
+                    } else if(trackSelect== "Feel Good"){
+                        backImg.src = images[2];
+                        ctx.drawImage(backImg, 0, 0);
+                    }
                 }
-            }
                 value = !value;
                 console.log(trackSelect);
-            displayCover.onFinishChange(function(value) {
->>>>>>> fac5ce26276a2d399119e0ba54925794b137b688
-                value != value;
-                // albumDisplay();
-                console.log(trackSelect);
-                console.log(value);
             });
 
             displayCover.onFinishChange(function() {
@@ -481,52 +469,24 @@
                 newRad = value;
                 console.log("new value: " + value);
             });
-            let displayMode = "frequency";
+
+            let displayMode1 = "frequency";
+            let displayMode2 = "waveform";
             changeDisplayMode = f2.add(text, 'changeMode', ['frequency', 'waveform']);
-            changeDisplayMode.onFinishChange(function(value){
-                // if(displayMode == 'frequency'){
-                //     analyserNode.getByteFrequencyData(data);
-                // } else if(displayMode == 'waveform'){
-                //     analyserNode.getByteTimeDomainData(data); // waveform data
-                // }
-
-                if(value == displayMode){
-                    analyserNode.getByteFrequencyData(data);
-                }else {
-                    analyserNode.getByteTimeDomainData(data); // waveform data
+            changeDisplayMode.onChange(function(value){
+                if(value == displayMode1){
+                    freq = true;
                 }
-                console.log(displayMode);
+                
+                else if (value == displayMode2) {
+                    freq = false;
+                }
+                console.log(value);
             });
-            f2.add(text, 'addNoise');
 
+            f2.add(text, 'addNoise');
             
         };
-
-        // function changeTrack() {
-        //      switch (settings.track) {
-        //         case 'Invincible': 
-        //             playStream(audioElement, SOUND_4);
-        //             break;
-        //         case 'Shelter (100% Remix)':
-        //             playStream(audioElement, SOUND_5);
-        //             console.log(audioElement.src);
-        //             break;
-        //         case 'Feel Good': 
-        //             playStream(audioElement, SOUND_6);
-        //             break;
-        //         case 'New Adventure Theme':
-        //             playStream(audioElement, SOUND_1);
-        //             break;
-        //         case 'Peanuts Theme':
-        //             playStream(audioElement, SOUND_2);
-        //             break;
-        //         case 'The Picard Song':
-        //             playStream(audioElement, SOUND_3);
-        //             break;
-        //     }
-        //         console.log(settings.track);
-                
-        // }
 		
 		window.addEventListener("load",init);
 	}());
