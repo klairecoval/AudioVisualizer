@@ -360,11 +360,46 @@ var currTrack = "";
 			// .. and do nothing if the method is not supported
 		};
 		
+        let controls = function() {
+            // this.message = 'test';
+            this.track = 'Invincible';
+            this.color = "white";
+            this.displayAlbumCover = false;
+            this.changeMode = 'frequency';
+            this.addNoise = false;
+            this.displayPlayTime = false;
+            this.changeOpacity = 0.8;
+            this.changeWidth = newRad;
+            // this.displayOutline = false;
+            // this.explode = function() {  };
+            // Define render logic ...
+        };
+
+        window.onload = function() {
+            var text = new controls();
+            var gui = new dat.GUI();
+            // gui.add(text, 'message');
+            let f1 = gui.addFolder('Window');
+            f1.add(text, 'track', ['Invincible', 'Shelter (100% Remix)', 'Feel Good', 'New Adventure Theme', 'Peanuts Theme', 'The Picard Song']);
+            f1.add(text, 'displayPlayTime');
+
+            let f2 = gui.addFolder('Visualizer');
+            f2.add(text, 'color', [ 'red', 'orange', 'yellow', 'green', 'blue', 'purple', 'black', 'white' ] );
+            f2.add(text, 'changeOpacity', 0.1, 0.5);
+            f2.add(text, 'changeWidth', 1, 10); // Min and max
+            f2.add(text, 'changeMode', ['frequency', 'waveform']);
+            f2.add(text, 'displayAlbumCover');
+            f2.add(text, 'addNoise');
+            // gui.add(text, 'displayOutline');
+            // gui.add(text, 'explode');
+        };
 		
 		window.addEventListener("load",init);
 	}());
 
-	</script>
+    </script>
+    <script type="text/javascript" src="dat.gui.min.js"></script>
+    
 </head>
 <body>
 	<canvas id="canvas" width="900" height="600"></canvas>
@@ -430,6 +465,7 @@ var currTrack = "";
         <br><br>
         <button id="fsButton">Go Full Screen</button>
         <img id="output"></img>
-	</div>
+    </div>
+    
 </body>
 </html>
