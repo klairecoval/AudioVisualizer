@@ -63,7 +63,6 @@
         var data; 
     var currentTrack;
         
-        var background = new Image();
 		
 		function init() {
 			// set up canvas stuff
@@ -264,7 +263,7 @@
 			}
             
             manipulatePixels();
-			albumDisplay();
+			//albumDisplay();
 		} 
 		
 		// HELPER
@@ -432,8 +431,23 @@
 
             let displayCover = f1.add(text, 'displayAlbumCover');
             // set the value of the check box to its opposite value
-            displayCover.onFinishChange(function(value) {
-                value != value;
+            displayCover.onChange(function(value) {
+                console.log(value);
+                if(value){
+                if(trackSelect == "Invincible"){
+                    backImg.src = images[0];
+                    ctx.drawImage(backImg, 0, 0);
+                    
+                } else if(trackSelect == "Shelter"){
+                    backImg.src = images[1];
+                    ctx.drawImage(backImg, 0, 0);
+                } else if(trackSelect== "Feel Good"){
+                    backImg.src = images[2];
+                    ctx.drawImage(backImg, 0, 0);
+                }
+            }
+                value = !value;
+                console.log(trackSelect);
                 console.log(value);
             });
 
