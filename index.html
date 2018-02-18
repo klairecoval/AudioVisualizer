@@ -222,7 +222,7 @@
             document.querySelector("#colorChooser").onchange = function(e){
 				currColor = e.target.value;
 			};
-            document.querySelector("#modeChooser").onclick = function(){
+            document.querySelector("#modeChooser").onclick = function(e){
 				displayMode = e.target.value;
 			};
             
@@ -273,10 +273,15 @@
 			
 			// populate the array with the frequency data
 			// notice these arrays can be passed "by reference" 
-			analyserNode.getByteFrequencyData(data);
+			//analyserNode.getByteFrequencyData(data);
 		
 			// OR
 			// analyserNode.getByteTimeDomainData(data); // waveform data
+            if(displayMode == 'frequency'){
+                    analyserNode.getByteFrequencyData(data);
+                } else if(displayMode == 'waveform'){
+                    analyserNode.getByteTimeDomainData(data); // waveform data
+                }
 			
 			// DRAW!
 			ctx.clearRect(0,0,900,600);  
@@ -366,7 +371,8 @@
                 }
             }
         }
-        
+
+
         function manipulatePixels(){
             //i)Getallofthergbapixeldataofthecanvasbygrabbingthe
             //ImageDataObject
