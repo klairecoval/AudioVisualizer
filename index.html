@@ -40,6 +40,7 @@
     var SOUND_6 = 'media/Feel Good.mp3';
     var audioElement;
     let soundController;
+    var currentTrack;
 
 	(function(){
 		"use strict";
@@ -103,40 +104,40 @@ var currTrack = "";
             //     console.log(value);
             // });
             soundController = trackSelect;
-            trackSelect.onFinishChange(function(value) {
-                switch (value) {
-                    case value == 'Invincible': 
+            soundController.onChange(function() {
+                switch (currentTrack) {
+                    case currentTrack == 'Invincible': 
                         // audioElement.src = SOUND_4;
                         // audioElement.play();
                         playStream(audioElement,SOUND_4);
                         break;
-                    case value == 'Shelter (100% Remix)':
+                    case currentTrack == 'Shelter (100% Remix)':
                         // audioElement.src = SOUND_5;
                         // audioElement.play();
                         playStream(audioElement,SOUND_5);
                         break;
-                    case value == 'Feel Good': 
+                    case currentTrack == 'Feel Good': 
                         // audioElement.src = SOUND_6;
                         // audioElement.play();
                         playStream(audioElement,SOUND_6);
                         break;
-                    case value == 'New Adventure Theme':
+                    case currentTrack == 'New Adventure Theme':
                         // audioElement.src = SOUND_1;
                         // audioElement.play();
                         playStream(audioElement,SOUND_1);
                         break;
-                    case value == 'Peanuts Theme':
+                    case currentTrack == 'Peanuts Theme':
                         // audioElement.src = SOUND_2;
                         // audioElement.play();
                         playStream(audioElement,SOUND_2);
                         break;
-                    case value == 'The Picard Song':
+                    case currentTrack == 'The Picard Song':
                         // audioElement.src = SOUND_3;
                         // audioElement.play();
                         playStream(audioElement,SOUND_3);
                         break;
                 }
-                console.log(audioElement.src);
+                console.log(trackSelect);
             });
             f1.add(text, 'displayPlayTime');
 
@@ -445,7 +446,7 @@ var currTrack = "";
 		
         // sets the default values for the gui
         let controls = function() {
-            this.track = 'Invincible';
+            this.track = currentTrack = 'Invincible';
             this.color = "white";
             this.displayAlbumCover = false;
             this.changeMode = 'frequency';
