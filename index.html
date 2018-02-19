@@ -16,14 +16,14 @@
     }
 
     #fontLoader {
-                height: 0;
-                width: 0;
-                overflow: hidden
+        height: 0;
+        width: 0;
+        overflow: hidden
     }
 
-            #roboto {
-                font-family: 'Roboto', sans-serif;
-            }
+    #roboto {
+        font-family: 'Roboto', sans-serif;
+    }
 
     #canvas {
         /*margin-right: auto;
@@ -31,9 +31,9 @@
         /*padding: 0;
         display: block;*/
         position: absolute;
-            z-index: 0;
-            left: 10px;
-            top: 10px;
+        z-index: 0;
+        left: 10px;
+        top: 10px;
         box-shadow: 4px 4px 8px rgba(0,0,0, 0.5);
         /*background: black;*/
         background:rgba(0,0,0,0);
@@ -103,6 +103,7 @@
         var trackingTrack = "Invincible";
         var backColor = "black";
         var changingBackCol = false;
+        var showLines = false;
 
 
 		function init() {
@@ -310,10 +311,11 @@
                 
                 ctx.arc(i * (circleSpacing) + circleRadius, topSpacing + (256-data[i]), newRad, 0, Math.PI * 2, true);
 
-                // top line -- DON'T DELETE
-                let yPos = 130 + (data[i] - newRad);
-                ctx.arc(i * (circleSpacing) + circleRadius, yPos , newRad, 0, Math.PI * 2, true);
-                yPos = yPos - circleSpacing;
+                if (showLines == true) {
+                    let yPos = 130 + (data[i] - newRad);
+                    ctx.arc(i * (circleSpacing) + circleRadius, yPos , newRad, 0, Math.PI * 2, true);
+                    yPos = yPos - circleSpacing;
+                }
 
                 // using a for loop to create an array of circles 
                 // NEED TO FIND A WAY TO OPTIMIZE THE PERFORMANCE 
@@ -517,6 +519,7 @@
             this.displayPlayTime = false;
             this.changeOpacity = opacity = 0.5;
             this.changeWidth = 1;
+            this.lines = false;
             // this.changeDelay = delayAmount = 0.5;
             this.changeDelay = 'no';
             this.fullScreen = function requestFullscreen() {
@@ -613,6 +616,18 @@
                     testBool = false;
                 }
                 //console.log(trackSelect);
+            });
+
+            let displayLines = f1.add(text, 'lines');
+            displayLines.onChange(function(value) {
+                value = !value;
+                if (!value) {
+                    showLines = true;
+                }
+
+                else {
+                    showLines = false;
+                }
             });
 
             // added full screen button to gui
