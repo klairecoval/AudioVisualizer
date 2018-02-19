@@ -3,20 +3,43 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Web Audio Visualizer</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<style>
 	body {
         background: #111111;
-        font-family: tahoma, verdana, sans serif;
         color: #fff;
+        font-family: 'Roboto', sans-serif;
     }
 
-    canvas {
-        margin-right:auto;
-        margin-left: auto;
-        padding: 0;
-        display: block;
-        box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
-        background: black;
+    footer{
+        margin-top: 40em;
+    }
+
+    #canvas {
+        /*margin-right: auto;
+        margin-left: auto;*/
+        /*padding: 0;
+        display: block;*/
+                    position: absolute;
+            z-index: 0;
+            left: 10px;
+            top: 10px;
+        box-shadow: 4px 4px 8px rgba(0,0,0, 0.5);
+        /*background: black;*/
+        background:rgba(0,0,0,0);
+    }
+
+    #canvas2{
+        background:rgba(0,0,0,0);
+        position: absolute;
+        left: 10px;
+        z-index: 1;
+        /*position:absolute;*/
+        /*margin-right: auto;*/
+        /*margin-left: inherit;*/
+        /*left:10px;
+        top:10px;*/
+        /*display: block;*/
     }
     
     #controls {
@@ -45,7 +68,7 @@
         var SOUND_6 = 'media/Feel Good.mp3';
 		var audioElement;
 		var analyserNode;
-		var canvas, ctx;
+		var canvas, ctx, canvas2, ctx2;
         var invert = false;
         var showTime = false; 
         var noise = false;
@@ -55,7 +78,7 @@
         var lineHeight = 200;
         var currColor = "white";
         var opacity = 0.5;
-        var images = ['images/NCSInvincible.png', 'images/ShelterRemix.png','images/NCSFeelGood.png'];
+        var images = ['images/NCSInvincible copy.png', 'images/ShelterRemix copy.png','images/NCSFeelGood copy.png', 'images/square.jpg'];
         var backImg = new Image();
         var currTrack = "";
         var newRad = 2;
@@ -66,13 +89,19 @@
         let delayAmount = 0.5;
         let delayNode;
         let showDelay = false;
+        var testBool = false;
+        var trackingTrack = "Invincible";
 
         var background = new Image();
 		
 		function init() {
 			// set up canvas stuff
-			canvas = document.querySelector('canvas');
+			canvas = document.querySelector('#canvas');
 			ctx = canvas.getContext("2d");
+
+            //second canvas for album
+            canvas2 = document.querySelector('#canvas2');
+			ctx2 = canvas2.getContext("2d");
 			
 			// get reference to <audio> element on page
 			audioElement = document.querySelector('audio');
@@ -241,6 +270,13 @@
                 drawTime();
             }
 
+            if(testBool){
+                albumDisplay();
+            } else {
+                testBool =false;
+                ctx2.clearRect(0, 0, 900, 600);
+            }
+
 			// var barWidth = 10;
 			// var barSpacing = 2;
 			// var barHeight = 100;
@@ -313,7 +349,6 @@
 			}
             
             manipulatePixels();
-			//albumDisplay();
             if (showDelay) {
                 delayAmount = 0.5;
                 delayNode.delayTime.value = delayAmount;
@@ -332,18 +367,23 @@
 		}
 
         function albumDisplay(){
-            if(album){
-                if(currTrack == "media/Invincible.mp3"){
+            if(trackingTrack == "Invincible"){
                     backImg.src = images[0];
-                    ctx.drawImage(backImg, 0, 0);
-                } else if(currTrack == "media/Shelter.mp3"){
+                    ctx2.clearRect(0, 0, 900, 600);
+                    ctx2.drawImage(backImg, 680, 15);
+                } else if(trackingTrack == "Shelter (100% Remix)"){
                     backImg.src = images[1];
-                    ctx.drawImage(backImg, 0, 0);
-                } else if(currTrack == "media/Feel Good.mp3"){
+                    ctx2.clearRect(0, 0, 900, 600);
+                    ctx2.drawImage(backImg, 0, 0);
+                } else if(trackingTrack == "Feel Good"){
                     backImg.src = images[2];
-                    ctx.drawImage(backImg, 0, 0);
+                    ctx2.clearRect(0, 0, 900, 600);
+                    ctx2.drawImage(backImg, 0, 0);
+                } else {
+                    backImg.src = images[3];
+                    ctx2.clearRect(0, 0, 900, 600);
+                    ctx2.drawImage(backImg, 0, 0);
                 }
-            }
         }
 
 
@@ -359,7 +399,7 @@
             //we’reloopingthroughthis60FPS-wow!
             var data = imageData.data;
             var length = data.length;
-            var width = imageData.width
+            var width = imageData.width;
             
             //iii)Iteratethrougheachpixel
             //westepby4sothatwecanmanipulate1pixelperiteration
@@ -465,7 +505,7 @@
             // adding folders to organize the gui information
             // the content in the Window folder changes what you can ADD to the window
             let f1 = gui.addFolder('Window');
-
+            
             // changing the track that is currently playing with the gui
             let trackSelect = f1.add(text, 'track', ['Invincible', 'Shelter (100% Remix)', 'Feel Good', 'New Adventure Theme', 'Peanuts Theme', 'The Picard Song']);
             trackSelect.onFinishChange(function(value) {
@@ -473,26 +513,32 @@
                     case 'Invincible': 
                         audioElement.src = SOUND_4;
                         audioElement.play();
+                        trackingTrack = 'Invincible';
                         break;
                     case 'Shelter (100% Remix)':
                         audioElement.src = SOUND_5;
                         audioElement.play();
+                        trackingTrack = 'Shelter (100% Remix)';
                         break;
                     case 'Feel Good': 
                         audioElement.src = SOUND_6;
                         audioElement.play();
+                        trackingTrack = 'Feel Good';
                         break;
                     case 'New Adventure Theme':
                         audioElement.src = SOUND_1;
                         audioElement.play();
+                        trackingTrack = 'New Adventure Theme';
                         break;
                     case 'Peanuts Theme':
                         audioElement.src = SOUND_2;
                         audioElement.play();
+                        trackingTrack = 'Peanuts Theme';
                         break;
                     case 'The Picard Song':
                         audioElement.src = SOUND_3;
                         audioElement.play();
+                        trackingTrack = 'The Picard Song';
                         break;
                 }
                 console.log(audioElement.src);
@@ -517,21 +563,14 @@
             let displayCover = f1.add(text, 'displayAlbumCover');
             // set the value of the check box to its opposite value
             displayCover.onChange(function(value) {
-                console.log(value);
-                if(value){
-                    if(trackSelect == "Invincible"){
-                        backImg.src = images[0];
-                        ctx.drawImage(backImg, 0, 0);
-                    } else if(trackSelect == "Shelter"){
-                        backImg.src = images[1];
-                        ctx.drawImage(backImg, 0, 0);
-                    } else if(trackSelect== "Feel Good"){
-                        backImg.src = images[2];
-                        ctx.drawImage(backImg, 0, 0);
-                    }
-                }
+                //console.log(value);
                 value = !value;
-                console.log(trackSelect);
+                if(!value){
+                    testBool = true;
+                } else{
+                    testBool = false;
+                }
+                //console.log(trackSelect);
             });
 
             // added full screen button to gui
@@ -615,7 +654,7 @@
                 console.log(value);
             });
 
-            f2.add(text, 'addNoise');
+            //f2.add(text, 'addNoise');
 
             let invertColors = f2.add(text, 'invertColors');
             invertColors.onChange(function(value) {
@@ -641,6 +680,7 @@
 </head>
 <body>
 	<canvas id="canvas" width="900" height="600"></canvas>
+    <canvas id="canvas2" width="900" height="600"></canvas>
 	<div id="controls">
 		<!-- <audio controls loop id="track" ontimeupdate="document.getElementById('tracktime').innerHTML = Math.floor(this.currentTime) + ' / ' + Math.floor(this.duration);"></audio> -->
 		<!-- <audio controls loop id="track" ontimeupdate="let currSeconds = (Math.floor(currentTime)%60); if (10 > currSeconds) {let selector = document.getElementById('tracktime').innerHTML = (Math.floor(currentTime/60)) + ':' + '0' + currSeconds + ' / ' + (Math.floor(duration/60)) + ':' + (Math.floor(duration))%60;} else if (currSeconds >= 10) {let selector = document.getElementById('tracktime').innerHTML = (Math.floor(currentTime/60)) + ':' + (Math.floor(currentTime)%60) + ' / ' + (Math.floor(duration/60)) + ':' + (Math.floor(duration))%60;}"></audio>         -->
@@ -707,6 +747,6 @@
         <button id="fsButton">Go Full Screen</button>
         <img id="output"></img>
     </div>
-    
+    <footer>Made by Sky Wan and Claire Koval for IGME330 - Spring</footer>
 </body>
 </html>
