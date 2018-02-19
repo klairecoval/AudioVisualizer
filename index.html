@@ -26,16 +26,11 @@
     }
 
     #canvas {
-        /*margin-right: auto;
-        margin-left: auto;*/
-        /*padding: 0;
-        display: block;*/
         position: absolute;
         z-index: 0;
         left: 10px;
         top: 10px;
         box-shadow: 4px 4px 8px rgba(0,0,0, 0.5);
-        /*background: black;*/
         background:rgba(0,0,0,0);
     }
 
@@ -44,12 +39,6 @@
         position: inherit;
         left: 10px;
         z-index: 1;
-        /*position:absolute;*/
-        /*margin-right: auto;*/
-        /*margin-left: inherit;*/
-        /*left:10px;
-        top:10px;*/
-        /*display: block;*/
     }
     
     #controls {
@@ -216,12 +205,14 @@
             let circleHeight = 100;
             let topSpacing = 200;
 
+            ctx.save();
             ctx.beginPath();
             ctx.globalAlpha = 0.2;
             ctx.fillStyle = backColor;
             ctx.rect(0, 0, 900, 600);
             ctx.fill();
             ctx.closePath();
+            ctx.restore();
 
 			// loop through the data and draw!
 			for(let i=0; i<data.length; i++) { 
