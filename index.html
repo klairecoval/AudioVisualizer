@@ -101,9 +101,10 @@
         let showDelay = false;
         var testBool = false;
         var trackingTrack = "Invincible";
+        var backColor = "black";
+        var changingBackCol = false;
 
-        var background = new Image();
-		
+
 		function init() {
 			// set up canvas stuff
 			canvas = document.querySelector('#canvas');
@@ -112,13 +113,12 @@
             //second canvas for album
             canvas2 = document.querySelector('#canvas2');
 			ctx2 = canvas2.getContext("2d");
-			
 			// get reference to <audio> element on page
 			audioElement = document.querySelector('audio');
 			
 			// call our helper function and get an analyser node
 			analyserNode = createWebAudioContextWithAnalyserNode(audioElement);
-			
+
 			// get sound track <select> and Full Screen button working
 			setupUI();
 			
@@ -276,17 +276,6 @@
 			// DRAW!
 			ctx.clearRect(0,0,900,600);  
 
-            if (time) {
-                drawTime();
-            }
-
-            if(testBool){
-                albumDisplay();
-            } else {
-                testBool =false;
-                ctx2.clearRect(0, 0, 900, 600);
-            }
-
 			// var barWidth = 10;
 			// var barSpacing = 2;
 			// var barHeight = 100;
@@ -297,17 +286,28 @@
             var circleHeight = 100;
             var topSpacing = 200;
 			
+
+                ctx.beginPath();
+                ctx.globalAlpha = 0.2;
+                ctx.fillStyle = backColor;
+                ctx.rect(0, 0, 900, 600);
+                ctx.fill();
+                ctx.closePath();
+
 			// loop through the data and draw!
 			for(var i=0; i<data.length; i++) { 
-                
+
+
 				ctx.fillStyle = currColor; 
                 ctx.globalAlpha = opacity;
 				
                 // the higher the amplitude of the sample (bin) the taller the bar
 				// remember we have to draw our bars left-to-right and top-down
 				// ctx.fillRect(i * (barWidth + barSpacing),topSpacing + 256-data[i],barWidth,barHeight); 
+			    
 
                 ctx.beginPath();
+                
                 ctx.arc(i * (circleSpacing) + circleRadius, topSpacing + (256-data[i]), newRad, 0, Math.PI * 2, true);
 
                 // top line -- DON'T DELETE
@@ -357,6 +357,18 @@
                 // ctx.restore();
 				
 			}
+            changeBackCol();
+
+            if (time) {
+                drawTime();
+            }
+
+            if(testBool){
+                albumDisplay();
+            } else {
+                testBool =false;
+                ctx2.clearRect(0, 0, 900, 600);
+            }
             
             manipulatePixels();
             if (showDelay) {
@@ -369,6 +381,26 @@
                 delayNode.delayTime.value = delayAmount = 0;
             }
 		} 
+
+        function changeBackCol(){
+            if(currColor == 'red'){
+                backColor = 'green';
+            } else if(currColor == 'orange'){
+                backColor = 'blue';
+            } else if(currColor == 'yellow'){
+                backColor = 'purple';
+            } else if(currColor == 'green'){
+                backColor = 'red';
+            } else if(currColor == 'blue'){
+                backColor = 'orange';
+            } else if(currColor == 'purple'){
+                backColor = 'yellow';
+            } else if(currColor == 'black'){
+                backColor = 'white';
+            } else if(currColor == 'white'){
+                backColor = 'black';
+            }
+        }
 		
 		// HELPER
 		function makeColor(red, green, blue, alpha){
@@ -384,15 +416,15 @@
                 } else if(trackingTrack == "Shelter (100% Remix)"){
                     backImg.src = images[1];
                     ctx2.clearRect(0, 0, 900, 600);
-                    ctx2.drawImage(backImg, 0, 0);
+                    ctx2.drawImage(backImg, 680, 15);
                 } else if(trackingTrack == "Feel Good"){
                     backImg.src = images[2];
                     ctx2.clearRect(0, 0, 900, 600);
-                    ctx2.drawImage(backImg, 0, 0);
+                    ctx2.drawImage(backImg, 680, 15);
                 } else {
                     backImg.src = images[3];
                     ctx2.clearRect(0, 0, 900, 600);
-                    ctx2.drawImage(backImg, 0, 0);
+                    ctx2.drawImage(backImg, 680, 15);
                 }
         }
 
@@ -594,7 +626,14 @@
             colorChange.onChange(function(value) {
                 currColor = value;
                 console.log("color: " + value);
+                // value = !value;
+                // if(!value){
+                //     changeBackCol = true;
+                // } else{
+                //     changeBackCol = false;
+                // }
             });
+
 
             // changing the opacity according to the GUI value
             let controlOpacity = f2.add(text, 'changeOpacity', 0.1, 1.0);
@@ -690,7 +729,7 @@
 </head>
 <body>
 	<canvas id="canvas" width="900" height="600"></canvas>
-    <canvas id="canvas2" width="900" height="600"></canvas>
+    <canvas id="canvas2" width="900" height="200"></canvas>
 	<div id="controls">
 		<!-- <audio controls loop id="track" ontimeupdate="document.getElementById('tracktime').innerHTML = Math.floor(this.currentTime) + ' / ' + Math.floor(this.duration);"></audio> -->
 		<!-- <audio controls loop id="track" ontimeupdate="let currSeconds = (Math.floor(currentTime)%60); if (10 > currSeconds) {let selector = document.getElementById('tracktime').innerHTML = (Math.floor(currentTime/60)) + ':' + '0' + currSeconds + ' / ' + (Math.floor(duration/60)) + ':' + (Math.floor(duration))%60;} else if (currSeconds >= 10) {let selector = document.getElementById('tracktime').innerHTML = (Math.floor(currentTime/60)) + ':' + (Math.floor(currentTime)%60) + ' / ' + (Math.floor(duration/60)) + ':' + (Math.floor(duration))%60;}"></audio>         -->
