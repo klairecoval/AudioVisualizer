@@ -111,6 +111,7 @@
             //second canvas for album
             canvas2 = document.querySelector('#canvas2');
 			ctx2 = canvas2.getContext("2d");
+            
 			// get reference to <audio> element on page
 			audioElement = document.querySelector('audio');
 			
@@ -186,7 +187,6 @@
 			audioElement.src = path;
 			audioElement.play();
 			audioElement.volume = 0.2;
-			// document.querySelector('#status').innerHTML = "Now playing: " + path;
 		}
 		
 		function update() { 
