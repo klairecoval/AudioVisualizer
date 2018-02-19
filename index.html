@@ -119,7 +119,7 @@
 
 			// start animation loop
 			update();
-            loadImages(images);
+            loadImages(images); //load images in array and set their source
 
 		}
 
@@ -130,6 +130,7 @@
             ctx.fillText(document.querySelector('#tracktime').innerHTML, 10, 25);
         }
 
+        //Itterate through images array and load images to the window but do not display
         function loadImages(imgArr, targetId){
             for(let i=0; i< imgArr.length; i++) {
                 let img = new Image();
@@ -244,13 +245,16 @@
                 ctx.fill();
 			}
 
+            //call function to check if the background color has been changes
             changeBackCol();
 
             // display the time if the box is checked (which sets time = true)
             if (time) {
                 drawTime();
             }
-
+            
+            //if the album box is checked, display the album cover by calling the function
+            //if not, clear the rectangle to get rit of the image
             if(testBool){
                 albumDisplay();
             } else {
@@ -273,6 +277,7 @@
             }
 		} 
 
+        //Depending on the color of the circles, call the complementary/opposite color for the background
         function changeBackCol(){
             if(currColor == 'red'){
                 backColor = 'green';
@@ -299,6 +304,7 @@
    			return color;
 		}
 
+        //depending on the current track being played, display the album image by setting the source of the image 
         function albumDisplay(){
             if(trackingTrack == "Invincible"){
                 backImg.src = images[0];
@@ -432,6 +438,7 @@
             // set the value of the check box to its opposite value
             displayCover.onChange(function(value) {
                 value = !value;
+                //set boolean to propperly call function
                 if(!value){
                     testBool = true;
                 } else{

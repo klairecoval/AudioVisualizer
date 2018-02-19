@@ -4,18 +4,18 @@ An audio visualizer using the Canvas API
 Inspiration: [Hamza580](http://bit.ly/2EGhG03)
 
 ## Proposed Features
-- [ ] Keep track of time on screen
+- [x] Keep track of time on screen
 - [ ] Change width of bar graph
   - Switch between view shape modes
 - [x] Find audio from [NCS](http://bit.ly/1l3zpKd)
 - [x] Song selector
 - [ ] Click and drag to start new waveform
-- [ ] Symmetry of the bars, horizontal
+- [x] Symmetry of the bars, horizontal
 - [ ] Possible pulse where mouse clicked
   - Individually change color of each circle when pressed
 - [x] Add now playing  
 
-### Controls (need 1 selector, 2 sliders, 3 checkboxes) //All Added, not functional
+### Controls (need 1 selector, 2 sliders, 3 checkboxes)
 - [x] Invert button
   - Checkbox
 - [x] Show play time
