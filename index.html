@@ -15,12 +15,22 @@
         margin-top: 40em;
     }
 
+    #fontLoader {
+                height: 0;
+                width: 0;
+                overflow: hidden
+    }
+
+            #roboto {
+                font-family: 'Roboto', sans-serif;
+            }
+
     #canvas {
         /*margin-right: auto;
         margin-left: auto;*/
         /*padding: 0;
         display: block;*/
-                    position: absolute;
+        position: absolute;
             z-index: 0;
             left: 10px;
             top: 10px;
@@ -31,7 +41,7 @@
 
     #canvas2{
         background:rgba(0,0,0,0);
-        position: absolute;
+        position: inherit;
         left: 10px;
         z-index: 1;
         /*position:absolute;*/
@@ -127,7 +137,7 @@
             // ctx.fillStyle = 'rgba(255, 255, 255, 1)';
             ctx.fillstyle = '#fff';
             ctx.globalAlpha = 0.9;
-            ctx.font = "bold 20px sans-serif";
+            ctx.font = "bold 20px Roboto";
             ctx.fillText(document.querySelector('#tracktime').innerHTML, 10, 25);
         }
 
@@ -748,5 +758,8 @@
         <img id="output"></img>
     </div>
     <footer>Made by Sky Wan and Claire Koval for IGME330 - Spring</footer>
+    <div id="fontLoader">
+        <p id = "roboto">loaded</p>
+    </div>
 </body>
 </html>
