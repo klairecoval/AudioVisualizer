@@ -297,16 +297,11 @@
 
 			// loop through the data and draw!
 			for(var i=0; i<data.length; i++) { 
-
-
 				ctx.fillStyle = currColor; 
                 ctx.globalAlpha = opacity;
 				
                 // the higher the amplitude of the sample (bin) the taller the bar
 				// remember we have to draw our bars left-to-right and top-down
-				// ctx.fillRect(i * (barWidth + barSpacing),topSpacing + 256-data[i],barWidth,barHeight); 
-			    
-
                 ctx.beginPath();
                 
                 ctx.arc(i * (circleSpacing) + circleRadius, topSpacing + (256-data[i]), newRad, 0, Math.PI * 2, true);
@@ -317,48 +312,10 @@
                     yPos = yPos - circleSpacing;
                 }
 
-                // using a for loop to create an array of circles 
-                // NEED TO FIND A WAY TO OPTIMIZE THE PERFORMANCE 
-                // for (let k = 0; k < canvas.height/2; k++) {
-                //     ctx.arc(i * 15, topSpacing * 5 * (k + 1), (data[i] / 50) * 2, 0, Math.PI * 2, true);
-                // }
-
-                // for (let k = 0; k < data[1]; k++) {
-                //     let yPos = data[i] - newRad;
-                //     ctx.arc(i * (circleSpacing) + circleRadius, yPos , newRad, 0, Math.PI * 2, true);
-                //     // console.log(data[i]);
-                //     yPos = yPos - circleSpacing;
-                //     // console.log(data[0]);
-                // }
                 ctx.closePath();
                 ctx.fill();
-
-                // //reddish circles
-                // var percent = data[i]/255;
-                // var circleRadius = percent;
-                // ctx.beginPath();
-                // ctx.fillStyle = currColor;
-                // ctx.arc(canvas.width/2, canvas.height/2, circleRadius, 0, 2 * Math.PI, false);
-                // ctx.fill();
-                // ctx.closePath();
-                
-                // //blueish circles, bigger and more transparent
-                // ctx.beginPath();
-                // ctx.fillStyle = currColor;
-                // ctx.arc(canvas.width/2, canvas.height/2, circleRadius*1.5, 0, 2 * Math.PI, false);
-                // ctx.fill();
-                // ctx.closePath();
-                
-                // //yellow-ish circles, smaller
-                // ctx.save();
-                // ctx.beginPath();
-                // ctx.fillStyle = currColor;
-                // ctx.arc(canvas.width/2, canvas.height/2, circleRadius * .50, 0, 2 * Math.PI, false);
-                // ctx.fill();
-                // ctx.closePath();
-                // ctx.restore();
-				
 			}
+
             changeBackCol();
 
             if (time) {
@@ -373,12 +330,15 @@
             }
             
             manipulatePixels();
+
+            // if the showDelay bool is true, set the delay amount to be 0.5
             if (showDelay) {
                 delayAmount = 0.5;
                 delayNode.delayTime.value = delayAmount;
                 console.log(delayAmount);
             }
 
+            // if it's false, set the amount to 0 so we don't get a delay
             else {
                 delayNode.delayTime.value = delayAmount = 0;
             }
@@ -493,20 +453,6 @@
             //putthemodifieddatabackonthecanvas
             ctx.putImageData(imageData,0,0);
         }
-		
-		 // FULL SCREEN MODE
-		// function requestFullscreen(element) {
-		// 	if (element.requestFullscreen) {
-		// 	  element.requestFullscreen();
-		// 	} else if (element.mozRequestFullscreen) {
-		// 	  element.mozRequestFullscreen();
-		// 	} else if (element.mozRequestFullScreen) { // camel-cased 'S' was changed to 's' in spec
-		// 	  element.mozRequestFullScreen();
-		// 	} else if (element.webkitRequestFullscreen) {
-		// 	  element.webkitRequestFullscreen();
-		// 	}
-		// 	// .. and do nothing if the method is not supported
-		// };
 
         // sets the default values for the gui
         let controls = function() {
@@ -520,7 +466,6 @@
             this.changeOpacity = opacity = 0.5;
             this.changeWidth = 1;
             this.lines = false;
-            // this.changeDelay = delayAmount = 0.5;
             this.changeDelay = 'no';
             this.fullScreen = function requestFullscreen() {
                 if (canvas.requestFullscreen) {
@@ -608,19 +553,19 @@
             let displayCover = f1.add(text, 'displayAlbumCover');
             // set the value of the check box to its opposite value
             displayCover.onChange(function(value) {
-                //console.log(value);
                 value = !value;
                 if(!value){
                     testBool = true;
                 } else{
                     testBool = false;
                 }
-                //console.log(trackSelect);
             });
 
+            // create a check box for displaying multiple lines
             let displayLines = f1.add(text, 'lines');
             displayLines.onChange(function(value) {
                 value = !value;
+                // if checked, set showLines to true
                 if (!value) {
                     showLines = true;
                 }
@@ -640,13 +585,6 @@
             let colorChange = f2.add(text, 'color', [ 'red', 'orange', 'yellow', 'green', 'blue', 'purple', 'black', 'white' ] );
             colorChange.onChange(function(value) {
                 currColor = value;
-                console.log("color: " + value);
-                // value = !value;
-                // if(!value){
-                //     changeBackCol = true;
-                // } else{
-                //     changeBackCol = false;
-                // }
             });
 
 
@@ -654,7 +592,6 @@
             let controlOpacity = f2.add(text, 'changeOpacity', 0.1, 1.0);
             controlOpacity.onFinishChange(function(value) {
                 opacity = value;
-                console.log("opacity: " + value);
             });
 
             // changing the radius of the circle according to the GUI
@@ -663,44 +600,21 @@
             controlWidth.onFinishChange(function(value) {
                 // fires when a controller loses focus
                 newRad = value;
-                console.log("new value: " + value);
             });
 
             // change the delay for the audio
             let noDelay = "no";
             let yesDelay = "yes";
-            // let controlDelay = f2.add(text, 'changeDelay', 0.0, 1.0);
             let controlDelay = f2.add(text, 'changeDelay', ['yes', 'no']);
             // update the delay amount with the slider
             controlDelay.onChange(function(value) {
-                // delayAmount = value;
-                // console.log(value);
-                
-
-                // if (value > 0.0) {
-                //     showDelay = true;
-                //     console.log('enter1');
-                // }
-
-                // else if (value == 0.0) {
-                //     showDelay = false;
-                //     console.log('enter2');
-                // }
-
-                // console.log(showDelay);
-
                 if (value == noDelay) {
                     showDelay = false;
-                    console.log('1');
                 }
 
                 else if (value == yesDelay) {
                     showDelay = true;
-                    console.log('2');
-                    console.log(showDelay);
                 }
-
-                // console.log(value);
             });
 
             // altering the data display with the gui
@@ -708,6 +622,7 @@
             let displayMode2 = "waveform";
             let changeDisplayMode = f2.add(text, 'changeMode', ['frequency', 'waveform']);
             changeDisplayMode.onChange(function(value) {
+                // if the value from the selector matches this string, set bool to true
                 if(value == displayMode1){
                     freq = true;
                 }
@@ -715,15 +630,14 @@
                 else if (value == displayMode2) {
                     freq = false;
                 }
-                console.log(value);
             });
 
-            //f2.add(text, 'addNoise');
-
+            // add control for the color inverting
             let invertColors = f2.add(text, 'invertColors');
             invertColors.onChange(function(value) {
                 value = !value; // toggle the boolean for inverting the colors
 
+                // if the box has been checked, set invert to true
                 if (!value) {
                     invert = true;
                 }
