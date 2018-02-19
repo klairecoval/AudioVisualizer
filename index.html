@@ -70,12 +70,9 @@
 		"use strict";
 		
 		var NUM_SAMPLES = 256;
-		// var SOUND_1 = 'media/New Adventure Theme.mp3';
-		// var SOUND_2 = 'media/Peanuts Theme.mp3';
-		// var SOUND_3 = 'media/The Picard Song.mp3';
-        var SOUND_4 = 'media/Invincible.mp3';
-        var SOUND_5 = 'media/Shelter.mp3';
-        var SOUND_6 = 'media/Feel Good.mp3';
+        var SOUND_1 = 'media/Invincible.mp3';
+        var SOUND_2 = 'media/Shelter.mp3';
+        var SOUND_3 = 'media/Feel Good.mp3';
 		var audioElement;
 		var analyserNode;
 		var canvas, ctx, canvas2, ctx2;
@@ -88,7 +85,7 @@
         var lineHeight = 200;
         var currColor = "white";
         var opacity = 0.5;
-        var images = ['images/NCSInvincible copy.png', 'images/ShelterRemix copy.png','images/NCSFeelGood copy.png', 'images/square.jpg'];
+        var images = ['images/NCSInvincible copy.png', 'images/ShelterRemix copy.png','images/NCSFeelGood copy.png'];
         var backImg = new Image();
         var currTrack = "";
         var newRad = 2;
@@ -124,7 +121,7 @@
 			// setupUI();
 			
 			// load and play default sound into audio element
-			playStream(audioElement,SOUND_4);
+			playStream(audioElement,SOUND_1);
 
 			// start animation loop
 			update();
@@ -322,13 +319,8 @@
                 backImg.src = images[2];
                 ctx2.clearRect(0, 0, 900, 600);
                 ctx2.drawImage(backImg, 680, 15);
-            } else {
-                backImg.src = images[3];
-                ctx2.clearRect(0, 0, 900, 600);
-                ctx2.drawImage(backImg, 680, 15);
-            }
+            } 
         }
-
 
         function manipulatePixels(){
             //i)Getallofthergbapixeldataofthecanvasbygrabbingthe
@@ -344,20 +336,14 @@
             var length = data.length;
             var width = imageData.width;
             
-            //iii)Iteratethrougheachpixel
-            //westepby4sothatwecanmanipulate1pixelperiteration
-            //data[i]istheredvalue
-            //data[i+1]isthegreenvalue
-            //data[i+2]isthebluevalue
-            //data[i+3]isthealphavalue
+            //iii) Iterate through each pixel
+            //we step by 4 so that we can manipulate 1 pixel per iteration
+            //data[i] is the red value
+            //data[i+1] is the green value
+            //data[i+2] is the blue value
+            //data[i+3] is the alpha value
             for(var i=0; i<length ;i+=4){
-                //iv)increaseredvalueonly
-        
-
-
-
-                
-                //v)inverteverycolorchannel
+                //v)invert every color channel
                 if(invert){
                     var red = data[i], green = data[i+1], blue = data[i+2];
                     data[i] = 255-red;  //setredvalue
@@ -365,31 +351,8 @@
                     data[i+2] = 255-blue;  //setgreenvalue
                     //data[i+3]isthealphabutwe’releavingthatalone
                 }
-                
-                // vi) how about some noise?
-                if (noise && Math.random() < 0.10) {
-                    data[i] = data[i+1] = data[i+2] = 128;      // gray noise
-                    //data[i] = data[i+1] = data[i+2] = 255;    // white noise
-                    //data[i] = data[i+1] = data[i+2] = 0;      // black noise
-                    data[i+3] = 255;                            // noise in alpha areas
-                }
-                
-                // vii) draw a 2px line every 50 rows
-                if (lines) {
-                    var row = Math.floor(i / 4 / width);
-                    if (row % 50 == 0) {
-                        // this row
-                        data[i] = data[i+1] = data[i+2] = data[i+3] = 255;
-                        
-                        // next row
-                        data[i + (width*4)] = 
-                        data[i + (width*4) + 1] = 
-                        data[i + (width*4) + 2] = 
-                        data[i + (width*4) + 3] = 255;
-                    }
-                }
             }
-            //putthemodifieddatabackonthecanvas
+            // put the modified data back on the canvas
             ctx.putImageData(imageData,0,0);
         }
 
@@ -436,42 +399,25 @@
             let f1 = gui.addFolder('Window');
             
             // changing the track that is currently playing with the gui
-            let trackSelect = f1.add(text, 'track', ['Invincible', 'Shelter (100% Remix)', 'Feel Good', 'New Adventure Theme', 'Peanuts Theme', 'The Picard Song']);
+            let trackSelect = f1.add(text, 'track', ['Invincible', 'Shelter (100% Remix)', 'Feel Good']);
             trackSelect.onFinishChange(function(value) {
                 switch (value) {
                     case 'Invincible': 
-                        audioElement.src = SOUND_4;
+                        audioElement.src = SOUND_1;
                         audioElement.play();
                         trackingTrack = 'Invincible';
                         break;
                     case 'Shelter (100% Remix)':
-                        audioElement.src = SOUND_5;
+                        audioElement.src = SOUND_2;
                         audioElement.play();
                         trackingTrack = 'Shelter (100% Remix)';
                         break;
                     case 'Feel Good': 
-                        audioElement.src = SOUND_6;
+                        audioElement.src = SOUND_3;
                         audioElement.play();
                         trackingTrack = 'Feel Good';
                         break;
-                    case 'New Adventure Theme':
-                        audioElement.src = SOUND_1;
-                        audioElement.play();
-                        trackingTrack = 'New Adventure Theme';
-                        break;
-                    case 'Peanuts Theme':
-                        audioElement.src = SOUND_2;
-                        audioElement.play();
-                        trackingTrack = 'Peanuts Theme';
-                        break;
-                    case 'The Picard Song':
-                        audioElement.src = SOUND_3;
-                        audioElement.play();
-                        trackingTrack = 'The Picard Song';
-                        break;
                 }
-                console.log(audioElement.src);
-                console.log(value);
             });
 
             let showTime = f1.add(text, 'displayPlayTime');
