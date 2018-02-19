@@ -112,7 +112,7 @@
 
 			// start animation loop
 			update();
-            loadImages(images);
+            loadImages(images); //load images in array and set their source
 
 		}
 
@@ -238,6 +238,7 @@
                 ctx.fill();
 			}
 
+            //call function to check if the background color has been changes
             changeBackCol();
 
             // display the time if the box is checked (which sets time = true)
@@ -430,6 +431,7 @@
             // set the value of the check box to its opposite value
             displayCover.onChange(function(value) {
                 value = !value;
+                //set boolean to propperly call function
                 if(!value){
                     testBool = true;
                 } else{
