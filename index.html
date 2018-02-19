@@ -63,6 +63,9 @@
         var currentTrack;
         let freq = true;
         let time = false;
+        let delayAmount = 0.5;
+        let delayNode;
+        let showDelay = false;
 
         var background = new Image();
 		
@@ -111,6 +114,7 @@
 		
 		function createWebAudioContextWithAnalyserNode(audioElement) {
 			var audioCtx, analyserNode, sourceNode;
+            // let audioCtx2, sourceNode1, analyserNode1;
 			// create new AudioContext
 			// The || is because WebAudio has not been standardized across browsers yet
 			// http://webaudio.github.io/web-audio-api/#the-audiocontext-interface
@@ -127,16 +131,36 @@
 			the third is 344Hz. Each bin contains a number between 0-255 representing 
 			the amplitude of that frequency.
 			*/ 
-			
+            
 			// fft stands for Fast Fourier Transform
 			analyserNode.fftSize = NUM_SAMPLES;
-			
+
 			// this is where we hook up the <audio> element to the analyserNode
 			sourceNode = audioCtx.createMediaElementSource(audioElement); 
-			sourceNode.connect(analyserNode);
+
+            // create the delayNode instance
+            delayNode = audioCtx.createDelay();
+            delayNode.delayTime.value = delayAmount;
+            
+            // if (showDelay == false) {
+            //     console.log("11111");
+			//     sourceNode.connect(analyserNode);
+            //     // here we connect to the destination i.e. speakers
+			//     analyserNode.connect(audioCtx.destination);
+            //     working = false;
+            // }
 			
-			// here we connect to the destination i.e. speakers
-			analyserNode.connect(audioCtx.destination);
+            // else {
+                console.log("22222");
+                // working = true;
+                // connect source node directly to speakers so we can hear the unaltered source in this channel
+                sourceNode.connect(audioCtx.destination);
+
+                // this channel will play and visualize the display
+                sourceNode.connect(delayNode);
+                delayNode.connect(analyserNode);
+                analyserNode.connect(audioCtx.destination);
+            // }
 			return analyserNode;
 		}
 		
@@ -241,13 +265,9 @@
                 ctx.arc(i * (circleSpacing) + circleRadius, topSpacing + (256-data[i]), newRad, 0, Math.PI * 2, true);
 
                 // top line
-                let yPos = 130 + (data[i] - newRad);
-                ctx.arc(i * (circleSpacing) + circleRadius, yPos , newRad, 0, Math.PI * 2, true);
-                yPos = yPos - circleSpacing;
-
-                // ctx.arc(i * (barWidth + barSpacing), (topSpacing - circleRadius - 10) + 256-data[i], (data[i] / 100) * newRad, 0, Math.PI * 2, true);
-
-                // ctx.arc(i * 15, circleSpacing, (data[i] / 100) * 2, 0, Math.PI * 2, true);
+                // let yPos = 130 + (data[i] - newRad);
+                // ctx.arc(i * (circleSpacing) + circleRadius, yPos , newRad, 0, Math.PI * 2, true);
+                // yPos = yPos - circleSpacing;
 
                 // using a for loop to create an array of circles 
                 // NEED TO FIND A WAY TO OPTIMIZE THE PERFORMANCE 
@@ -255,11 +275,12 @@
                 //     ctx.arc(i * 15, topSpacing * 5 * (k + 1), (data[i] / 50) * 2, 0, Math.PI * 2, true);
                 // }
 
-                // for (let k = 0; k < data[i]; k++) {
+                // for (let k = 0; k < data[1]; k++) {
                 //     let yPos = data[i] - newRad;
                 //     ctx.arc(i * (circleSpacing) + circleRadius, yPos , newRad, 0, Math.PI * 2, true);
                 //     // console.log(data[i]);
                 //     yPos = yPos - circleSpacing;
+                //     // console.log(data[0]);
                 // }
                 ctx.closePath();
                 ctx.fill();
@@ -293,6 +314,15 @@
             
             manipulatePixels();
 			//albumDisplay();
+            if (showDelay) {
+                delayAmount = 0.5;
+                delayNode.delayTime.value = delayAmount;
+                console.log(delayAmount);
+            }
+
+            else {
+                delayNode.delayTime.value = delayAmount = 0;
+            }
 		} 
 		
 		// HELPER
@@ -405,6 +435,8 @@
             this.displayPlayTime = false;
             this.changeOpacity = opacity = 0.5;
             this.changeWidth = 1;
+            // this.changeDelay = delayAmount = 0.5;
+            this.changeDelay = 'no';
             this.fullScreen = function requestFullscreen() {
                 if (canvas.requestFullscreen) {
                     canvas.requestFullscreen();
@@ -529,6 +561,43 @@
                 // fires when a controller loses focus
                 newRad = value;
                 console.log("new value: " + value);
+            });
+
+            // change the delay for the audio
+            let noDelay = "no";
+            let yesDelay = "yes";
+            // let controlDelay = f2.add(text, 'changeDelay', 0.0, 1.0);
+            let controlDelay = f2.add(text, 'changeDelay', ['yes', 'no']);
+            // update the delay amount with the slider
+            controlDelay.onChange(function(value) {
+                // delayAmount = value;
+                // console.log(value);
+                
+
+                // if (value > 0.0) {
+                //     showDelay = true;
+                //     console.log('enter1');
+                // }
+
+                // else if (value == 0.0) {
+                //     showDelay = false;
+                //     console.log('enter2');
+                // }
+
+                // console.log(showDelay);
+
+                if (value == noDelay) {
+                    showDelay = false;
+                    console.log('1');
+                }
+
+                else if (value == yesDelay) {
+                    showDelay = true;
+                    console.log('2');
+                    console.log(showDelay);
+                }
+
+                // console.log(value);
             });
 
             // altering the data display with the gui
