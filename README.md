@@ -15,7 +15,7 @@ Inspiration: [Hamza580](http://bit.ly/2EGhG03)
   - Individually change color of each circle when pressed
 - [x] Add now playing  
 
-### Controls (need 1 selector, 2 sliders, 3 checkboxes) //All Added, not functional
+### Controls (need 1 selector, 2 sliders, 3 checkboxes)
 - [x] Invert button
   - Checkbox
 - [x] Show play time
