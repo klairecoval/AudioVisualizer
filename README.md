@@ -18,7 +18,7 @@ Inspiration: [Hamza580](http://bit.ly/2EGhG03)
 ### Controls (need 1 selector, 2 sliders, 3 checkboxes) //All Added, not functional
 - [x] Invert button
   - Checkbox
-- [ ] Show play time
+- [x] Show play time
   - Check box
 - [x] Frequency/waveform mode //!!!
   - Selector
@@ -39,10 +39,10 @@ Inspiration: [Hamza580](http://bit.ly/2EGhG03)
 
 ## To Fix
 - [x] bg images not displaying 
-- [ ] need a cleaner GUI
+- [x] need a cleaner GUI
 - [ ] rounded rectangle
 - [x] need to add waveform data
-- [ ] add new audio node
+- [x] add new audio node
 
 ## Class Resources
 - [Main Project Resources](http://igm.rit.edu/~acjvks/courses/2018-spring/330/html/project-1/)
