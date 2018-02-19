@@ -70,17 +70,17 @@
 		"use strict";
 		
 		var NUM_SAMPLES = 256;
-		var SOUND_1 = 'media/New Adventure Theme.mp3';
-		var SOUND_2 = 'media/Peanuts Theme.mp3';
-		var SOUND_3 = 'media/The Picard Song.mp3';
+		// var SOUND_1 = 'media/New Adventure Theme.mp3';
+		// var SOUND_2 = 'media/Peanuts Theme.mp3';
+		// var SOUND_3 = 'media/The Picard Song.mp3';
         var SOUND_4 = 'media/Invincible.mp3';
         var SOUND_5 = 'media/Shelter.mp3';
         var SOUND_6 = 'media/Feel Good.mp3';
 		var audioElement;
 		var analyserNode;
 		var canvas, ctx, canvas2, ctx2;
-        var invert = false;
-        var showTime = false; 
+        var invert = false; // does not invert colors by default
+        var showTime = false; //
         var noise = false;
         var lines = false;
         var lineWidth = 3;
@@ -93,17 +93,17 @@
         var currTrack = "";
         var newRad = 2;
         var data; 
-        var currentTrack;
-        let freq = true;
-        let time = false;
+        var currentTrack;   // used to keep track of the track that is bring played
+        let freq = true;    // shows frequency data by default
+        let time = false;   // does not show time by default
         let delayAmount = 0.5;
         let delayNode;
-        let showDelay = false;
+        let showDelay = false;  // does not allow delay by default
         var testBool = false;
         var trackingTrack = "Invincible";
         var backColor = "black";
         var changingBackCol = false;
-        var showLines = false;
+        var showLines = false;  // default behavior does not show lines
 
 
 		function init() {
@@ -121,7 +121,7 @@
 			analyserNode = createWebAudioContextWithAnalyserNode(audioElement);
 
 			// get sound track <select> and Full Screen button working
-			setupUI();
+			// setupUI();
 			
 			// load and play default sound into audio element
 			playStream(audioElement,SOUND_4);
@@ -134,8 +134,6 @@
 
         function drawTime() {
             console.log(document.querySelector('#tracktime').innerHTML);
-            console.dir(ctx);
-            // ctx.fillStyle = 'rgba(255, 255, 255, 1)';
             ctx.fillstyle = '#fff';
             ctx.globalAlpha = 0.9;
             ctx.font = "bold 20px Roboto";
@@ -154,7 +152,6 @@
 		
 		function createWebAudioContextWithAnalyserNode(audioElement) {
 			var audioCtx, analyserNode, sourceNode;
-            // let audioCtx2, sourceNode1, analyserNode1;
 			// create new AudioContext
 			// The || is because WebAudio has not been standardized across browsers yet
 			// http://webaudio.github.io/web-audio-api/#the-audiocontext-interface
@@ -181,71 +178,16 @@
             // create the delayNode instance
             delayNode = audioCtx.createDelay();
             delayNode.delayTime.value = delayAmount;
-            
-            // if (showDelay == false) {
-            //     console.log("11111");
-			//     sourceNode.connect(analyserNode);
-            //     // here we connect to the destination i.e. speakers
-			//     analyserNode.connect(audioCtx.destination);
-            //     working = false;
-            // }
-			
-            // else {
-                console.log("22222");
-                // working = true;
-                // connect source node directly to speakers so we can hear the unaltered source in this channel
-                sourceNode.connect(audioCtx.destination);
 
-                // this channel will play and visualize the display
-                sourceNode.connect(delayNode);
-                delayNode.connect(analyserNode);
-                analyserNode.connect(audioCtx.destination);
-            // }
+            // connect source node directly to speakers so we can hear the unaltered source in this channel
+            sourceNode.connect(audioCtx.destination);
+
+            // this channel will play and visualize the display
+            sourceNode.connect(delayNode);
+            delayNode.connect(analyserNode);
+            analyserNode.connect(audioCtx.destination);
+
 			return analyserNode;
-		}
-		
-		function setupUI(){
-            //Selectors
-			document.querySelector("#trackSelect").onchange = function(e){
-				playStream(audioElement,e.target.value);
-                currTrack = e.target.value;
-			};
-            document.querySelector("#colorChooser").onchange = function(e){
-				currColor = e.target.value;
-			};
-            document.querySelector("#modeChooser").onclick = function(e){
-				displayMode = e.target.value;
-			};
-            
-            //Checkboxes
-            document.querySelector("#timeChecked").onchange = function(e){
-				showTime = e.target.checked;
-			};	
-            document.querySelector("#invertChecked").onchange = function(e){
-				invert = e.target.checked;
-			};	
-            document.querySelector("#noiseChecked").onchange = function(e){
-				noise = e.target.checked;
-			};
-            document.querySelector("#albumChecked").onchange = function(e){
-				album = e.target.checked;
-			};	
-
-            //Sliders
-            document.querySelector("#heightChanged").onchange = function(e){
-				lineHeight = e.target.value;
-			};
-            document.querySelector("#widthChanged").onchange = function(e){
-				newRad = e.target.value;
-			};
-            document.querySelector("#opacityChanged").onchange = function(e){
-				opacity = e.target.value;
-			};
-            
-            //Full Screen Button
-            document.querySelector("#fsButton").onclick = function(){
-				// requestFullscreen(canvas);
-			};	
 		}
 		
 		function playStream(audioElement,path){
@@ -269,7 +211,7 @@
                 analyserNode.getByteFrequencyData(data); // frequency data
             }
 		
-			// OR
+            // display waveform data if the box isn't checked
             else {
                 analyserNode.getByteTimeDomainData(data); // waveform data
             }
@@ -277,23 +219,17 @@
 			// DRAW!
 			ctx.clearRect(0,0,900,600);  
 
-			// var barWidth = 10;
-			// var barSpacing = 2;
-			// var barHeight = 100;
-			// var topSpacing = 200;
-
             var circleRadius = 5;
             var circleSpacing = 7;
             var circleHeight = 100;
             var topSpacing = 200;
-			
 
-                ctx.beginPath();
-                ctx.globalAlpha = 0.2;
-                ctx.fillStyle = backColor;
-                ctx.rect(0, 0, 900, 600);
-                ctx.fill();
-                ctx.closePath();
+            ctx.beginPath();
+            ctx.globalAlpha = 0.2;
+            ctx.fillStyle = backColor;
+            ctx.rect(0, 0, 900, 600);
+            ctx.fill();
+            ctx.closePath();
 
 			// loop through the data and draw!
 			for(var i=0; i<data.length; i++) { 
@@ -306,6 +242,8 @@
                 
                 ctx.arc(i * (circleSpacing) + circleRadius, topSpacing + (256-data[i]), newRad, 0, Math.PI * 2, true);
 
+                // if the gui for the lines have been checked, then showLines has been set to true
+                // if showLines is true, display the second line
                 if (showLines == true) {
                     let yPos = 130 + (data[i] - newRad);
                     ctx.arc(i * (circleSpacing) + circleRadius, yPos , newRad, 0, Math.PI * 2, true);
@@ -318,6 +256,7 @@
 
             changeBackCol();
 
+            // display the time if the box is checked (which sets time = true)
             if (time) {
                 drawTime();
             }
@@ -375,19 +314,19 @@
                     backImg.src = images[0];
                     ctx2.clearRect(0, 0, 900, 600);
                     ctx2.drawImage(backImg, 680, 15);
-                } else if(trackingTrack == "Shelter (100% Remix)"){
-                    backImg.src = images[1];
-                    ctx2.clearRect(0, 0, 900, 600);
-                    ctx2.drawImage(backImg, 680, 15);
-                } else if(trackingTrack == "Feel Good"){
-                    backImg.src = images[2];
-                    ctx2.clearRect(0, 0, 900, 600);
-                    ctx2.drawImage(backImg, 680, 15);
-                } else {
-                    backImg.src = images[3];
-                    ctx2.clearRect(0, 0, 900, 600);
-                    ctx2.drawImage(backImg, 680, 15);
-                }
+            } else if(trackingTrack == "Shelter (100% Remix)"){
+                backImg.src = images[1];
+                ctx2.clearRect(0, 0, 900, 600);
+                ctx2.drawImage(backImg, 680, 15);
+            } else if(trackingTrack == "Feel Good"){
+                backImg.src = images[2];
+                ctx2.clearRect(0, 0, 900, 600);
+                ctx2.drawImage(backImg, 680, 15);
+            } else {
+                backImg.src = images[3];
+                ctx2.clearRect(0, 0, 900, 600);
+                ctx2.drawImage(backImg, 680, 15);
+            }
         }
 
 
@@ -660,8 +599,6 @@
 	<canvas id="canvas" width="900" height="600"></canvas>
     <canvas id="canvas2" width="900" height="200"></canvas>
 	<div id="controls">
-		<!-- <audio controls loop id="track" ontimeupdate="document.getElementById('tracktime').innerHTML = Math.floor(this.currentTime) + ' / ' + Math.floor(this.duration);"></audio> -->
-		<!-- <audio controls loop id="track" ontimeupdate="let currSeconds = (Math.floor(currentTime)%60); if (10 > currSeconds) {let selector = document.getElementById('tracktime').innerHTML = (Math.floor(currentTime/60)) + ':' + '0' + currSeconds + ' / ' + (Math.floor(duration/60)) + ':' + (Math.floor(duration))%60;} else if (currSeconds >= 10) {let selector = document.getElementById('tracktime').innerHTML = (Math.floor(currentTime/60)) + ':' + (Math.floor(currentTime)%60) + ' / ' + (Math.floor(duration/60)) + ':' + (Math.floor(duration))%60;}"></audio>         -->
 		<audio controls loop id="track" ontimeupdate="let currSeconds = (Math.floor(currentTime)%60); let durSeconds = (Math.floor(duration))%60; if (10 > currSeconds && 10 > durSeconds) {let selector = document.getElementById('tracktime').innerHTML = (Math.floor(currentTime/60)) + ':' + '0' + currSeconds + ' / ' + (Math.floor(duration/60)) + ':' + '0' + durSeconds;} else if (10 > currSeconds && durSeconds > 10) {let selector = document.getElementById('tracktime').innerHTML = (Math.floor(currentTime/60)) + ':' + '0' + currSeconds + ' / ' + (Math.floor(duration/60)) + ':' + durSeconds;} else if (currSeconds >= 10 && durSeconds >=10) {let selector = document.getElementById('tracktime').innerHTML = (Math.floor(currentTime/60)) + ':' + (Math.floor(currentTime)%60) + ' / ' + (Math.floor(duration/60)) + ':' + durSeconds;}"></audio>                
         <span id="tracktime">0 / 0</span>
         <p id="status">???</p> <!--Current song-->
