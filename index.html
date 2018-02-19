@@ -22,6 +22,7 @@
     #controls {
         width: 900px;
         margin: 0 auto;
+        display: none;
     }
 
     img {
@@ -53,13 +54,11 @@
         var album = false;
         var lineHeight = 200;
         var currColor = "white";
-        // var displayMode = "frequency";
         var opacity = 0.5;
         var images = ['images/NCSInvincible.png', 'images/ShelterRemix.png','images/NCSFeelGood.png'];
         var backImg = new Image();
         var currTrack = "";
         var newRad = 2;
-        let soundController;
         var data; 
         var currentTrack;
         let freq = true;
@@ -422,11 +421,8 @@
             // the content in the Window folder changes what you can ADD to the window
             let f1 = gui.addFolder('Window');
 
-            let audioPart = document.querySelector('audio');
-            // time = audioPart.played.end(0);
             // changing the track that is currently playing with the gui
             let trackSelect = f1.add(text, 'track', ['Invincible', 'Shelter (100% Remix)', 'Feel Good', 'New Adventure Theme', 'Peanuts Theme', 'The Picard Song']);
-            soundController = trackSelect;
             trackSelect.onFinishChange(function(value) {
                 switch (value) {
                     case 'Invincible': 
