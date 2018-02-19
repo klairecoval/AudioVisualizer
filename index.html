@@ -69,38 +69,38 @@
 	(function(){
 		"use strict";
 		
-		var NUM_SAMPLES = 256;
-        var SOUND_1 = 'media/Invincible.mp3';
-        var SOUND_2 = 'media/Shelter.mp3';
-        var SOUND_3 = 'media/Feel Good.mp3';
-		var audioElement;
-		var analyserNode;
-		var canvas, ctx, canvas2, ctx2;
-        var invert = false; // does not invert colors by default
-        var showTime = false; //
-        var noise = false;
-        var lines = false;
-        var lineWidth = 3;
-        var album = false;
-        var lineHeight = 200;
-        var currColor = "white";
-        var opacity = 0.5;
-        var images = ['images/NCSInvincible copy.png', 'images/ShelterRemix copy.png','images/NCSFeelGood copy.png'];
-        var backImg = new Image();
-        var currTrack = "";
-        var newRad = 2;
-        var data; 
-        var currentTrack;   // used to keep track of the track that is bring played
+		let NUM_SAMPLES = 256;
+        let SOUND_1 = 'media/Invincible.mp3';
+        let SOUND_2 = 'media/Shelter.mp3';
+        let SOUND_3 = 'media/Feel Good.mp3';
+		let audioElement;
+		let analyserNode;
+		let canvas, ctx, canvas2, ctx2;
+        let invert = false; // does not invert colors by default
+        let showTime = false; //
+        let noise = false;
+        let lines = false;
+        let lineWidth = 3;
+        let album = false;
+        let lineHeight = 200;
+        let currColor = "white";
+        let opacity = 0.5;
+        let images = ['images/NCSInvincible copy.png', 'images/ShelterRemix copy.png','images/NCSFeelGood copy.png'];
+        let backImg = new Image();
+        let currTrack = "";
+        let newRad = 2;
+        let data; 
+        let currentTrack;   // used to keep track of the track that is bring played
         let freq = true;    // shows frequency data by default
         let time = false;   // does not show time by default
         let delayAmount = 0.5;
         let delayNode;
         let showDelay = false;  // does not allow delay by default
-        var testBool = false;
-        var trackingTrack = "Invincible";
-        var backColor = "black";
-        var changingBackCol = false;
-        var showLines = false;  // default behavior does not show lines
+        let testBool = false;
+        let trackingTrack = "Invincible";
+        let backColor = "black";
+        let changingBackCol = false;
+        let showLines = false;  // default behavior does not show lines
 
 
 		function init() {
@@ -116,9 +116,6 @@
 			
 			// call our helper function and get an analyser node
 			analyserNode = createWebAudioContextWithAnalyserNode(audioElement);
-
-			// get sound track <select> and Full Screen button working
-			// setupUI();
 			
 			// load and play default sound into audio element
 			playStream(audioElement,SOUND_1);
@@ -130,7 +127,6 @@
 		}
 
         function drawTime() {
-            console.log(document.querySelector('#tracktime').innerHTML);
             ctx.fillstyle = '#fff';
             ctx.globalAlpha = 0.9;
             ctx.font = "bold 20px Roboto";
@@ -138,9 +134,8 @@
         }
 
         function loadImages(imgArr, targetId){
-            for(var i=0; i< imgArr.length; i++) {
-                console.log(imgArr[i]);
-                var img = new Image();
+            for(let i=0; i< imgArr.length; i++) {
+                let img = new Image();
                 img.src = imgArr[i];
                 document.getElementById('output').appendChild(img);
             }
@@ -148,7 +143,7 @@
 		
 		
 		function createWebAudioContextWithAnalyserNode(audioElement) {
-			var audioCtx, analyserNode, sourceNode;
+			let audioCtx, analyserNode, sourceNode;
 			// create new AudioContext
 			// The || is because WebAudio has not been standardized across browsers yet
 			// http://webaudio.github.io/web-audio-api/#the-audiocontext-interface
@@ -216,10 +211,10 @@
 			// DRAW!
 			ctx.clearRect(0,0,900,600);  
 
-            var circleRadius = 5;
-            var circleSpacing = 7;
-            var circleHeight = 100;
-            var topSpacing = 200;
+            let circleRadius = 5;
+            let circleSpacing = 7;
+            let circleHeight = 100;
+            let topSpacing = 200;
 
             ctx.beginPath();
             ctx.globalAlpha = 0.2;
@@ -229,7 +224,7 @@
             ctx.closePath();
 
 			// loop through the data and draw!
-			for(var i=0; i<data.length; i++) { 
+			for(let i=0; i<data.length; i++) { 
 				ctx.fillStyle = currColor; 
                 ctx.globalAlpha = opacity;
 				
@@ -261,7 +256,7 @@
             if(testBool){
                 albumDisplay();
             } else {
-                testBool =false;
+                testBool = false;
                 ctx2.clearRect(0, 0, 900, 600);
             }
             
@@ -302,15 +297,15 @@
 		
 		// HELPER
 		function makeColor(red, green, blue, alpha){
-   			var color='rgba('+red+','+green+','+blue+', '+alpha+')';
+   			let color='rgba('+red+','+green+','+blue+', '+alpha+')';
    			return color;
 		}
 
         function albumDisplay(){
             if(trackingTrack == "Invincible"){
-                    backImg.src = images[0];
-                    ctx2.clearRect(0, 0, 900, 600);
-                    ctx2.drawImage(backImg, 680, 15);
+                backImg.src = images[0];
+                ctx2.clearRect(0, 0, 900, 600);
+                ctx2.drawImage(backImg, 680, 15);
             } else if(trackingTrack == "Shelter (100% Remix)"){
                 backImg.src = images[1];
                 ctx2.clearRect(0, 0, 900, 600);
@@ -326,15 +321,15 @@
             //i)Getallofthergbapixeldataofthecanvasbygrabbingthe
             //ImageDataObject
             //https://developer.mozilla.org/en-US/docs/Web/API/ImageData
-            var imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
+            let imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
             
             //ii)imageData.dataisan8-bittypedarray-valuesrangefrom0-255
             //imageData.datacontains4valuesperpixel:4xcanvas.widthx
             //canvas.height=1024000values!
             //we’reloopingthroughthis60FPS-wow!
-            var data = imageData.data;
-            var length = data.length;
-            var width = imageData.width;
+            let data = imageData.data;
+            let length = data.length;
+            let width = imageData.width;
             
             //iii) Iterate through each pixel
             //we step by 4 so that we can manipulate 1 pixel per iteration
@@ -342,10 +337,10 @@
             //data[i+1] is the green value
             //data[i+2] is the blue value
             //data[i+3] is the alpha value
-            for(var i=0; i<length ;i+=4){
+            for(let i=0; i<length ;i+=4){
                 //v)invert every color channel
                 if(invert){
-                    var red = data[i], green = data[i+1], blue = data[i+2];
+                    let red = data[i], green = data[i+1], blue = data[i+2];
                     data[i] = 255-red;  //setredvalue
                     data[i+1] = 255-green;  //setbluevalue
                     data[i+2] = 255-blue;  //setgreenvalue
