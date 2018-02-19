@@ -19,12 +19,12 @@
         background: black;
     }
     
-    #controls{
+    #controls {
         width: 900px;
         margin: 0 auto;
     }
 
-    img{
+    img {
         display: none;
     }
 
@@ -63,7 +63,7 @@
         var data; 
         var currentTrack;
         let freq = true;
-        let time;
+        let time = false;
 
         var background = new Image();
 		
@@ -90,9 +90,14 @@
 
 		}
 
-        function drawTime(ctx) {
-            time = "0 / 0";
-            ctx.fillText(time, 10, 10);
+        function drawTime() {
+            console.log(document.querySelector('#tracktime').innerHTML);
+            console.dir(ctx);
+            // ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+            ctx.fillstyle = '#fff';
+            ctx.globalAlpha = 0.9;
+            ctx.font = "bold 20px sans-serif";
+            ctx.fillText(document.querySelector('#tracktime').innerHTML, 10, 25);
         }
 
         function loadImages(imgArr, targetId){
@@ -208,6 +213,10 @@
 
 			// DRAW!
 			ctx.clearRect(0,0,900,600);  
+
+            if (time) {
+                drawTime();
+            }
 
 			// var barWidth = 10;
 			// var barSpacing = 2;
@@ -432,9 +441,16 @@
 
             let showTime = f1.add(text, 'displayPlayTime');
             showTime.onChange(function(value) {
-                value = !value;
-                if (value) {
-                    drawTime(ctx);
+                value = !value; // toggle the checkbox
+
+                // if it's checked, set time to true (displays the time)
+                if (!value) {
+                    time = true;
+                }
+
+                // if it's not checked, set time to false (hide the time)
+                else {
+                    time = false;
                 }  
             });
 
@@ -519,7 +535,8 @@
 <body>
 	<canvas id="canvas" width="900" height="600"></canvas>
 	<div id="controls">
-		<audio controls loop id="track" ontimeupdate="document.getElementById('tracktime').innerHTML = Math.floor(this.currentTime) + ' / ' + Math.floor(this.duration);"></audio>
+		<!-- <audio controls loop id="track" ontimeupdate="document.getElementById('tracktime').innerHTML = Math.floor(this.currentTime) + ' / ' + Math.floor(this.duration);"></audio> -->
+		<audio controls loop id="track" ontimeupdate="let currSeconds = (Math.floor(currentTime)%60); if (10 > currSeconds) {let selector = document.getElementById('tracktime').innerHTML = (Math.floor(currentTime/60)) + ':' + '0' + currSeconds + ' / ' + (Math.floor(duration/60)) + ':' + (Math.floor(duration))%60;} else if (currSeconds >= 10) {let selector = document.getElementById('tracktime').innerHTML = (Math.floor(currentTime/60)) + ':' + (Math.floor(currentTime)%60) + ' / ' + (Math.floor(duration/60)) + ':' + (Math.floor(duration))%60;}"></audio>        
 		<span id="tracktime">0 / 0</span>
         <p id="status">???</p> <!--Current song-->
         <br>
