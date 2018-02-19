@@ -181,7 +181,7 @@
             
             //Full Screen Button
             document.querySelector("#fsButton").onclick = function(){
-				requestFullscreen(canvas);
+				// requestFullscreen(canvas);
 			};	
 		}
 		
@@ -369,18 +369,18 @@
         }
 		
 		 // FULL SCREEN MODE
-		function requestFullscreen(element) {
-			if (element.requestFullscreen) {
-			  element.requestFullscreen();
-			} else if (element.mozRequestFullscreen) {
-			  element.mozRequestFullscreen();
-			} else if (element.mozRequestFullScreen) { // camel-cased 'S' was changed to 's' in spec
-			  element.mozRequestFullScreen();
-			} else if (element.webkitRequestFullscreen) {
-			  element.webkitRequestFullscreen();
-			}
-			// .. and do nothing if the method is not supported
-		};
+		// function requestFullscreen(element) {
+		// 	if (element.requestFullscreen) {
+		// 	  element.requestFullscreen();
+		// 	} else if (element.mozRequestFullscreen) {
+		// 	  element.mozRequestFullscreen();
+		// 	} else if (element.mozRequestFullScreen) { // camel-cased 'S' was changed to 's' in spec
+		// 	  element.mozRequestFullScreen();
+		// 	} else if (element.webkitRequestFullscreen) {
+		// 	  element.webkitRequestFullscreen();
+		// 	}
+		// 	// .. and do nothing if the method is not supported
+		// };
 
         // sets the default values for the gui
         let controls = function() {
@@ -389,9 +389,28 @@
             this.displayAlbumCover = false;
             this.changeMode = 'frequency';
             this.addNoise = false;
+            this.invertColors = false;
             this.displayPlayTime = false;
             this.changeOpacity = opacity = 0.5;
             this.changeWidth = 1;
+            this.fullScreen = function requestFullscreen() {
+                if (canvas.requestFullscreen) {
+                    canvas.requestFullscreen();
+                } 
+                
+                else if (canvas.mozRequestFullscreen) {
+                    canvas.mozRequestFullscreen();
+                } 
+                
+                else if (canvas.mozRequestFullScreen) { // camel-cased 'S' was changed to 's' in spec
+                canvas.mozRequestFullScreen();
+                } 
+                
+                else if (canvas.webkitRequestFullscreen) {
+                    canvas.webkitRequestFullscreen();
+                }
+                // .. and do nothing if the method is not supported
+            };
         };
 
         // when the window is done loading, load the gui
@@ -454,8 +473,6 @@
                 }  
             });
 
-
-
             let displayCover = f1.add(text, 'displayAlbumCover');
             // set the value of the check box to its opposite value
             displayCover.onChange(function(value) {
@@ -476,9 +493,8 @@
                 console.log(trackSelect);
             });
 
-            displayCover.onFinishChange(function() {
-                console.log(currentTrack);
-            });
+            // added full screen button to gui
+            let fullScreen = f1.add(text, 'fullScreen');
 
             // the content in the Visualizer folder changes what the data will look like
             let f2 = gui.addFolder('Visualizer');
@@ -510,7 +526,7 @@
             let displayMode1 = "frequency";
             let displayMode2 = "waveform";
             let changeDisplayMode = f2.add(text, 'changeMode', ['frequency', 'waveform']);
-            changeDisplayMode.onChange(function(value){
+            changeDisplayMode.onChange(function(value) {
                 if(value == displayMode1){
                     freq = true;
                 }
@@ -522,6 +538,19 @@
             });
 
             f2.add(text, 'addNoise');
+
+            let invertColors = f2.add(text, 'invertColors');
+            invertColors.onChange(function(value) {
+                value = !value; // toggle the boolean for inverting the colors
+
+                if (!value) {
+                    invert = true;
+                }
+
+                else {
+                    invert = false;
+                }
+            });
             
         };
 		
