@@ -239,6 +239,12 @@
 
                 ctx.beginPath();
                 ctx.arc(i * (circleSpacing) + circleRadius, topSpacing + (256-data[i]), newRad, 0, Math.PI * 2, true);
+
+                // top line
+                let yPos = 130 + (data[i] - newRad);
+                ctx.arc(i * (circleSpacing) + circleRadius, yPos , newRad, 0, Math.PI * 2, true);
+                yPos = yPos - circleSpacing;
+
                 // ctx.arc(i * (barWidth + barSpacing), (topSpacing - circleRadius - 10) + 256-data[i], (data[i] / 100) * newRad, 0, Math.PI * 2, true);
 
                 // ctx.arc(i * 15, circleSpacing, (data[i] / 100) * 2, 0, Math.PI * 2, true);
@@ -247,6 +253,13 @@
                 // NEED TO FIND A WAY TO OPTIMIZE THE PERFORMANCE 
                 // for (let k = 0; k < canvas.height/2; k++) {
                 //     ctx.arc(i * 15, topSpacing * 5 * (k + 1), (data[i] / 50) * 2, 0, Math.PI * 2, true);
+                // }
+
+                // for (let k = 0; k < data[i]; k++) {
+                //     let yPos = data[i] - newRad;
+                //     ctx.arc(i * (circleSpacing) + circleRadius, yPos , newRad, 0, Math.PI * 2, true);
+                //     // console.log(data[i]);
+                //     yPos = yPos - circleSpacing;
                 // }
                 ctx.closePath();
                 ctx.fill();
