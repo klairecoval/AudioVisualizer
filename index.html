@@ -12,7 +12,13 @@
     }
 
     footer{
-        margin-top: 40em;
+        position: relative;
+        margin-top: 25em;
+    }
+
+    h1 {
+        margin-top: 5px;
+        padding: 0px 0px 5px 0px;
     }
 
     #fontLoader {
@@ -29,7 +35,7 @@
         position: absolute;
         z-index: 0;
         left: 10px;
-        top: 10px;
+        top: 55px;
         box-shadow: 4px 4px 8px rgba(0,0,0, 0.5);
         background:rgba(0,0,0,0);
     }
@@ -38,6 +44,7 @@
         background:rgba(0,0,0,0);
         position: inherit;
         left: 10px;
+        top: 55px;
         z-index: 1;
     }
     
@@ -528,12 +535,14 @@
     
 </head>
 <body>
+    <h1>Sky and Claire's Audio Visualizer</h1>
 	<canvas id="canvas" width="900" height="600"></canvas>
     <canvas id="canvas2" width="900" height="200"></canvas>
 	<div id="controls">
 		<audio controls loop id="track" ontimeupdate="let currSeconds = (Math.floor(currentTime)%60); let durSeconds = (Math.floor(duration))%60; if (10 > currSeconds && 10 > durSeconds) {let selector = document.getElementById('tracktime').innerHTML = (Math.floor(currentTime/60)) + ':' + '0' + currSeconds + ' / ' + (Math.floor(duration/60)) + ':' + '0' + durSeconds;} else if (10 > currSeconds && durSeconds > 10) {let selector = document.getElementById('tracktime').innerHTML = (Math.floor(currentTime/60)) + ':' + '0' + currSeconds + ' / ' + (Math.floor(duration/60)) + ':' + durSeconds;} else if (currSeconds >= 10 && durSeconds >=10) {let selector = document.getElementById('tracktime').innerHTML = (Math.floor(currentTime/60)) + ':' + (Math.floor(currentTime)%60) + ' / ' + (Math.floor(duration/60)) + ':' + durSeconds;}"></audio>                
         <span id="tracktime">0 / 0</span>
         <img id="output"></img>
+    </div>
     <footer>Made by Sky Wan and Claire Koval for IGME330 - Spring</footer>
     <div id="fontLoader">
         <p id = "roboto">loaded</p>
